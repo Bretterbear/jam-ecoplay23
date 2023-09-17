@@ -40,5 +40,5 @@ public class EnemyController_Base : MonoBehaviour
         }
     }
 
-    public float getDamage() {  return damage; }
+    public float GetDamage() {  return damage; }
 }
