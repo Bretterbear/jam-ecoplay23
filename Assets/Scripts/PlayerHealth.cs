@@ -15,6 +15,8 @@ public class PlayerHealth : MonoBehaviour
 
     private Color _normalColor;
 
+    private bool _bInvincible = false;
+
     /// <summary>
     /// Grabs the normal color of the player sprite to use for damage flash
     /// </summary>
@@ -24,14 +26,15 @@ public class PlayerHealth : MonoBehaviour
     }
 
     /// <summary>
-    /// When the player collides with somthing, if it's a bullet, the player takes damage and flashes
+    /// When the player collides with somthing, if it's a bullet, the player takes damage, becomes invincible, and flashes
     ///     *game over state not yet imlemented
     /// </summary>
     /// <param name="collision"></param>
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("Bullet") == true)
+        if(collision.gameObject.CompareTag("Bullet") == true && _bInvincible == false)
         {
+            _bInvincible = true;
             _playerHealth = _playerHealth - collision.gameObject.GetComponent<Bullet>().GetDamage();
             StartCoroutine(EDamageFlash());
             if (_playerHealth <= 0f)
@@ -43,14 +46,18 @@ public class PlayerHealth : MonoBehaviour
     }
 
     /// <summary>
-    /// Makes the player flash black for a split second 
-    ///     *Invincibility frames not yet implemented
+    /// Makes the player flash for 2 seconds
     /// </summary>
     /// <returns></returns>
     IEnumerator EDamageFlash()
     {
-        _playerSprite.color = new Color(0, 0, 0, 1);
-        yield return new WaitForSeconds(0.1f);
-        _playerSprite.color = _normalColor;
+        for (int i = 0; i < 10; i++) 
+        {
+            _playerSprite.color = new Color(0, 0, 0, 1);
+            yield return new WaitForSeconds(0.1f);
+            _playerSprite.color = _normalColor;
+            yield return new WaitForSeconds(0.1f);
+        }
+        _bInvincible = false;
     }
 }
