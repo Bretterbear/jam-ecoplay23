@@ -8,7 +8,7 @@ public class PlayerHealth : MonoBehaviour
     [Header("Player Health Settings")]
 
     [Tooltip("The total health of the player")]
-    [SerializeField] private float _playerHealth = 10f;
+    [SerializeField] private float _playerHealth;
 
     [Tooltip("The player's sprite renderer")]
     [SerializeField] private SpriteRenderer _playerSprite;
@@ -27,15 +27,21 @@ public class PlayerHealth : MonoBehaviour
 
     /// <summary>
     /// When the player collides with somthing, if it's a bullet, the player takes damage, becomes invincible, and flashes
+    /// Triggers the game over state if _layerHealth is <= 0
     ///     *game over state not yet imlemented
     /// </summary>
     /// <param name="collision"></param>
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("Bullet") == true && _bInvincible == false)
+        if(_bInvincible == false)
         {
             _bInvincible = true;
-            _playerHealth = _playerHealth - collision.gameObject.GetComponent<Bullet>().GetDamage();
+            if(collision.gameObject.CompareTag("Bullet") == true ){
+                _playerHealth = _playerHealth - collision.gameObject.GetComponent<Bullet>().GetDamage();
+            }
+            else if(collision.gameObject.CompareTag("Enemy") == true ){
+                _playerHealth = _playerHealth - collision.gameObject.GetComponent<Enemy>().GetDamage();
+            }
             StartCoroutine(EDamageFlash());
             if (_playerHealth <= 0f)
             {
@@ -46,7 +52,7 @@ public class PlayerHealth : MonoBehaviour
     }
 
     /// <summary>
-    /// Makes the player flash for 2 seconds
+    /// Makes the player flash for 2 seconds, the become not invincible
     /// </summary>
     /// <returns></returns>
     IEnumerator EDamageFlash()
