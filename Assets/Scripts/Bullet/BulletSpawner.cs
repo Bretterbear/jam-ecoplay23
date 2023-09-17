@@ -14,7 +14,7 @@ public class BulletSpawner : MonoBehaviour
     public float minRotation;
     public float maxRotation;
     public int bulletsPerCycle;
-    public bool isPatternSpawning;
+    public bool bPatternSpawning;
 
     public float cooldown;
     public float bulletSpeed;
@@ -23,15 +23,18 @@ public class BulletSpawner : MonoBehaviour
     float timer;
     float[] rotations;
 
+    private int bulletCounter = 0;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
         timer = cooldown;
+        bulletCounter = 0;
 
         rotations = new float[bulletsPerCycle];
-        if (isPatternSpawning)
+        if (bPatternSpawning)
         {
             RotationsDistributed();
         }
@@ -75,7 +78,7 @@ public class BulletSpawner : MonoBehaviour
     public GameObject[] SpawnBullets()
     {
         //BH| Switch up the pattern if we're in random-spawn mode
-        if (!isPatternSpawning)
+        if (!bPatternSpawning)
         {
             RotationsRandom();
         }
@@ -83,7 +86,19 @@ public class BulletSpawner : MonoBehaviour
         GameObject[] spawnedBullets = new GameObject[bulletsPerCycle];
         for (int i = 0; i < bulletsPerCycle; i++)
         {
-            spawnedBullets[i] = Instantiate(resourceBullet, transform);
+            spawnedBullets[i] = BulletManager.GetBulletFromPoop();
+            if (spawnedBullets[i] == null)
+            {
+                spawnedBullets[i] = Instantiate(resourceBullet, transform);
+                BulletManager.bulletsInUse.Add(spawnedBullets[i]);
+                bulletCounter++;
+                Debug.Log("bullet count: " + bulletCounter);
+            }
+            else
+            {
+                spawnedBullets[i].transform.SetParent(transform);
+                spawnedBullets[i].transform.localPosition = Vector2.zero;
+            }
             Bullet bulletRef = spawnedBullets[i].GetComponent<Bullet>();
             bulletRef.rotation = rotations[i];
             bulletRef.speed = bulletSpeed;

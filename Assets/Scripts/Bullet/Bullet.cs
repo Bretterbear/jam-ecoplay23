@@ -8,10 +8,8 @@ public class Bullet : MonoBehaviour
     public Vector2 velocity;
     public float speed;
     public float rotation;
-    public float lifeTime = 2f;
+    public float lifeTime = 5f;
     public float timeToLive;
-
-    public float damage = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -32,5 +30,8 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    public float GetDamage() { return damage; }
+    public void ResetTimeToLive()
+    {
+        timeToLive = lifeTime;
+    }
 }
