@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Player Movement Settings")]
 
     [Tooltip("Determines speed of player movement")]
-    [SerializeField] private float _playerMoveSpeed = 5f;
+    [SerializeField] private float _playerMoveSpeed;
 
     [Tooltip("The Rigidbody 2D component of the player object")]
     [SerializeField]private Rigidbody2D _playerRigidbody;

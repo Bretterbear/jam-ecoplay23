@@ -101,7 +101,7 @@ MonoBehaviour:
   velocity: {x: 1, y: 0}
   speed: 4
   rotation: 180
-  lifeTime: 2
+  lifeTime: 6
   timeToLive: 0
   damage: 1
 --- !u!58 &7317511851917336311
