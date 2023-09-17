@@ -5,8 +5,9 @@ using UnityEngine.UIElements;
 
 public class EnemyController_Base : MonoBehaviour
 {
-    [SerializeField] Transform[] positionBounds;
-    [SerializeField] float speed = 1f;
+    [SerializeField] public Transform[] positionBounds;
+    [SerializeField] public float speed = 1f;
+    [SerializeField] public float damage = 10f;
 
     private int patrolTarget;
 
@@ -38,4 +39,6 @@ public class EnemyController_Base : MonoBehaviour
             patrolTarget = 0;
         }
     }
+
+    public float getDamage() {  return damage; }
 }

@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     public float speed;
     public float rotation;
 
-    public float damage = 1;
+    public float damage = 1f;
 
     // Start is called before the first frame update
     void Start()
