@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     public float speed;
     public float rotation;
 
-    public float damage {  get; private set; }
+    public float damage = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -21,4 +21,6 @@ public class Bullet : MonoBehaviour
     {
         transform.Translate(velocity * speed * Time.deltaTime);
     }
+
+    public float getDamage() { return damage; }
 }
