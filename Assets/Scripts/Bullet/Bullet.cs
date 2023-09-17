@@ -25,6 +25,11 @@ public class Bullet : MonoBehaviour
     {
         transform.Translate(velocity * speed * Time.deltaTime);
         timeToLive -= Time.deltaTime;
+
+        if (timeToLive <= 0)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     public float GetDamage() { return damage; }
