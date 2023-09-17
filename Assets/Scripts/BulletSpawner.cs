@@ -88,6 +88,7 @@ public class BulletSpawner : MonoBehaviour
             bulletRef.rotation = rotations[i];
             bulletRef.speed = bulletSpeed;
             bulletRef.velocity = bulletVelocity;
+            bulletRef.tag = "Bullet";
         }
 
         return spawnedBullets;
