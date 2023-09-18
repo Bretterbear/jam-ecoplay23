@@ -43,3 +43,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: BG_Background
+    uniqueID: 1284793237
+    locked: 0
+  - name: BG_Midground
+    uniqueID: 2370413739
+    locked: 0
+  - name: BG_ForeGround
+    uniqueID: 3849926299
+    locked: 0
+  - name: PS_ForeGround
+    uniqueID: 897085587
+    locked: 0
