@@ -1,27 +1,28 @@
+using Services;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//BH| Notes
+//TODO | Make Heirarchy Pool Holding locations work
+
+/// <summary>
+/// Class handles registration & activation of the BulletPoolService plus some admin functions
+/// </summary>
 public class BulletManager : MonoBehaviour
 {
-    public static List<GameObject> bulletsInUse;
-    // Start is called before the first frame update
-    void Start()
+    [Header("Pool Holding Locations in Heirarchy")]
+    [Tooltip("Game Object References")]
+    public string beatmap;
+
+    private void Awake()
     {
-        bulletsInUse = new List<GameObject>();
+        ServiceLocator.Instance.Register(new BulletPoolService());
+        ServiceLocator.Instance.Get<BulletPoolService>().Init();
     }
 
-    public static GameObject GetBulletFromPoop()
+    private void OnDestroy()
     {
-        for (int i = 0; i < bulletsInUse.Count; i++)
-        {
-            if (!bulletsInUse[i].activeSelf)
-            {
-                bulletsInUse[i].GetComponent<Bullet>().ResetTimeToLive();
-                bulletsInUse[i].SetActive(true);
-                return bulletsInUse[i];
-            }
-        }
-        return null;
+        ServiceLocator.Instance.Unregister<BulletPoolService>();
     }
 }

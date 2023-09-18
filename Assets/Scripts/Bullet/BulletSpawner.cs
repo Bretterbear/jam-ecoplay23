@@ -1,12 +1,14 @@
+using Services;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
-//BH| Notes
-//TODO - Extend pattern spawn to an enum w/ your spawn pattern presets (out of rando-vs-spawn)
-//TODO - Migrate bullet spawning into proper object pooling to load limit
+//BH   | Notes
+//TODO | 1 Extend pattern spawn to an enum w/ your spawn pattern presets (out of rando-vs-spawn)
+//TODO | 2 Make a variable (Serial or pattern selectable) bullet type poolservice call
+//TODO | 3 Off of 2, add some pattern / serial bullet info to add into initialization for overriding bullet base in MakeNewBullet()
 
 public class BulletSpawner : MonoBehaviour
 {
@@ -15,6 +17,7 @@ public class BulletSpawner : MonoBehaviour
     public float maxRotation;
     public int bulletsPerCycle;
     public bool bPatternSpawning;
+    public bool bIsParent;
 
     public float cooldown;
     public float bulletSpeed;
@@ -23,15 +26,17 @@ public class BulletSpawner : MonoBehaviour
     float timer;
     float[] rotations;
 
-    private int bulletCounter = 0;
+    // --- Private Variable Declarations --- //
+    private BulletPoolService _linkBulletPool;      //Service Link to the bulletPool
 
 
 
     // Start is called before the first frame update
     void Start()
     {
+        _linkBulletPool = ServiceLocator.Instance.Get<BulletPoolService>();
+
         timer = cooldown;
-        bulletCounter = 0;
 
         rotations = new float[bulletsPerCycle];
         if (bPatternSpawning)
@@ -86,27 +91,52 @@ public class BulletSpawner : MonoBehaviour
         GameObject[] spawnedBullets = new GameObject[bulletsPerCycle];
         for (int i = 0; i < bulletsPerCycle; i++)
         {
-            spawnedBullets[i] = BulletManager.GetBulletFromPoop();
+            //For each requisite
+            spawnedBullets[i] = _linkBulletPool.GetBulletFromPoop(BulletStyle.Poke);
             if (spawnedBullets[i] == null)
             {
-                spawnedBullets[i] = Instantiate(resourceBullet, transform);
-                BulletManager.bulletsInUse.Add(spawnedBullets[i]);
-                bulletCounter++;
-                Debug.Log("bullet count: " + bulletCounter);
+                spawnedBullets[i] = MakeNewBullet(BulletStyle.Poke);
             }
-            else
-            {
-                spawnedBullets[i].transform.SetParent(transform);
-                spawnedBullets[i].transform.localPosition = Vector2.zero;
-            }
-            Bullet bulletRef = spawnedBullets[i].GetComponent<Bullet>();
-            bulletRef.rotation = rotations[i];
-            bulletRef.speed = bulletSpeed;
-            bulletRef.velocity = bulletVelocity;
-            bulletRef.tag = "Bullet";
+
+            SetBulletProperties(spawnedBullets[i].GetComponent<Bullet>(), i);
         }
 
         return spawnedBullets;
 
+    }
+
+    /// <summary>
+    /// Instantiates a new bullet, adds to the object pooling system & returns it
+    /// </summary>
+    /// <param name="style">style of bullet to be instatiated</param>
+    /// <returns>new bullet in pool</returns>
+    public GameObject MakeNewBullet(BulletStyle style)
+    {
+        GameObject newBullet = Instantiate(resourceBullet, transform);
+
+        _linkBulletPool.AddToPool(newBullet);
+
+        return newBullet;
+    }
+
+    /// <summary>
+    /// Sets physical & engine properties of bullet prior to "firing"
+    /// </summary>
+    public void SetBulletProperties(Bullet bullet, int i)
+    {
+        bullet.transform.SetParent(transform);
+        bullet.transform.localPosition = Vector2.zero;
+
+        if (!bIsParent)
+        {
+            bullet.transform.SetParent(null);
+        }
+
+        bullet.timeToLive = 2;
+        bullet.rotation = rotations[i];
+        bullet.speed = bulletSpeed;
+        bullet.velocity = bulletVelocity;
+
+        bullet.tag = "Bullet";
     }
 }

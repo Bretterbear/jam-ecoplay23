@@ -11,6 +11,8 @@ public class Bullet : MonoBehaviour
     public float lifeTime = 5f;
     public float timeToLive;
 
+    public BulletStyle bulletStyle = BulletStyle.Poke;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,4 +36,18 @@ public class Bullet : MonoBehaviour
     {
         timeToLive = lifeTime;
     }
+
+    public BulletStyle GetBulletStyle()
+    {
+        return bulletStyle;
+    }
+}
+
+/// <summary>
+/// Every bullet style should have an enum associated w/ it for pooling & behavior management
+/// </summary>
+public enum BulletStyle
+{
+    Poke,
+    Ball
 }
