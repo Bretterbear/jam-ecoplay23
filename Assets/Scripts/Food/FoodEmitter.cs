@@ -1,6 +1,4 @@
 using Services;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FoodEmitter : MonoBehaviour
@@ -54,10 +52,10 @@ public class FoodEmitter : MonoBehaviour
         int fireIndex = Random.Range(0, controlPointCount);
         Vector3 targetVector = makeTargetingVector(fireIndex);
 
-        GameObject foodInstance = _poolService.GetProjectileFromPoop((int)FoodStyle.Seaweed);
+        GameObject foodInstance = _poolService.GetProjectileFromPoop(ProjectileType.Food_Seaweed);
         if (foodInstance == null)
         {
-            foodInstance = MakeNewFood(FoodStyle.Seaweed, fireIndex);
+            foodInstance = MakeNewFood(ProjectileType.Food_Seaweed, fireIndex);
         }
 
         FoodItem foodBlast = foodInstance.GetComponent<FoodItem>();
@@ -89,7 +87,7 @@ public class FoodEmitter : MonoBehaviour
     /// </summary>
     /// <param name="style">style of food to be instatiated</param>
     /// <returns>new food</returns>
-    public GameObject MakeNewFood(FoodStyle style, int fireIndex)
+    public GameObject MakeNewFood(ProjectileType style, int fireIndex)
     {
         GameObject newFood = Instantiate(FoodSource, FoodSpawnPoints[fireIndex].transform);
 

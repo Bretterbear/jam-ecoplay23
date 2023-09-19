@@ -1,36 +1,34 @@
 using Services;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 //BH   | Notes
-//TODO | Clean this ugliness up esp once I do proper projectile base class inheritance for food & bullets
+//CONS | Might swap out pooling List for a stack, currently get operation is O(n) and that's just sad
+//CONS | Maybe adding an overhead bounding system. if avail pool of an obj is too large for too long we reduce its size?
+//CONS | Adding a prequeuing system where we can request pool resources allocated before we need them at low priority?
 
 /// <summary>
-/// Object pooling system that stores projectiles of bullet & foodstyle
+/// Object pooling system that stores projectiles of bullets & foods 
 /// </summary>
 public class PoolService : IService
 {
     // --- Private Variable Declarations --- //
-    private List<GameObject>[] _objectPool;
-    private List<GameObject> _poolStorageBins;
-    private int numberOfBulletStyles;
-    private int numberOfFoodStyles;
+    private List<GameObject>[] _objectPool;         // Actual pooling storage, 1 per style
+    private List<GameObject> _poolStorageBins;      // Instantiated holders for pooled objects in heirarchy
+    private int countProjectileStyles;              // Currently barely used, might eliminate
 
     /// <summary>
     /// Run just after registering the service in a level to make sure pools are ready to start holding
     /// </summary>
     public void Init()
     {
-        numberOfBulletStyles = Enum.GetNames(typeof(BulletStyle)).Length;
-        numberOfFoodStyles =  Enum.GetNames(typeof(FoodStyle)).Length;
+        countProjectileStyles = Enum.GetNames(typeof(ProjectileType)).Length;
 
-        _objectPool = new List<GameObject>[numberOfBulletStyles + numberOfFoodStyles];
+        _objectPool = new List<GameObject>[countProjectileStyles];
         _poolStorageBins = new List<GameObject>();
 
-        for (int i = 0; i < numberOfBulletStyles + numberOfFoodStyles; i++)
+        for (int i = 0; i < countProjectileStyles; i++)
         {
             _objectPool[i] = new List<GameObject>();
         }
@@ -40,10 +38,11 @@ public class PoolService : IService
     /// Searches requested object pool for an unused bullet & returns it if possible. Else returns null
     /// NOTE - Function does not reset TTL
     /// </summary>
-    /// <param name="style">must be any type within the BulletType enum</param>
+    /// <param name="style">must be any type within the ProjectileType enum</param>
     /// <returns>an activated & ready to use bullet if available or NULL</returns>
-    public GameObject GetProjectileFromPoop(int styleInt)
+    public GameObject GetProjectileFromPoop(ProjectileType style)
     {
+        int styleInt = (int)style;
         for (int i = 0; i < _objectPool[styleInt].Count; i++)
         {
             if (!_objectPool[styleInt][i].activeSelf)
@@ -62,31 +61,18 @@ public class PoolService : IService
     /// <param name="obj"></param>
     public void AddToPool(GameObject obj)
     {
-        if (obj.CompareTag("Bullet"))
+        Projectile projectile = obj.GetComponent<Projectile>();
+        if (projectile != null)
         {
-            Bullet bulletRef = obj.GetComponent<Bullet>();
-            if (bulletRef != null)
-            {
-                int bulletStyleRef = (int)bulletRef.GetBulletStyle();
-                //Debug.Log($"<color=cyan>Stored bullet in pool {bulletStyleRef}</color>");
-                _objectPool[bulletStyleRef].Add(obj);
-                obj.transform.SetParent(_poolStorageBins[bulletStyleRef].transform, false);
-                return;
-            }
+            int projectileStyleRef = (int)projectile.GetProjectileType();
+            _objectPool[projectileStyleRef].Add(obj);
+            //Debug.Log($"<color=cyan>Stored {obj.name} in pool {(ProjectileType) projectileStyleRef}</color>");
+            obj.transform.SetParent(_poolStorageBins[projectileStyleRef].transform, false);
         }
-        else if (obj.CompareTag("Food"))
+        else
         {
-            FoodItem foodRef = obj.GetComponent<FoodItem>();
-            if (foodRef != null)
-            {
-                int foodStyleRef = (int)foodRef.GetFoodStyle();
-                _objectPool[foodStyleRef].Add(obj);
-                obj.transform.SetParent(_poolStorageBins[foodStyleRef].transform, false);
-                //Debug.Log($"<color=cyan>Stored food in pool {foodStyleRef}</color>");
-                return;
-            }
+            Debug.LogError($"<color=orange>Bad use of Pool.AddToPool() - Attempted to add a non-pooled object {obj.name} into Pool</color>");
         }
-        Debug.LogError($"<color=orange>Bad use of Pool.AddToPool() - Attempted to add a non-pooled object {obj.name} into Pool</color>");
     }
 
     /// <summary>
@@ -95,28 +81,16 @@ public class PoolService : IService
     /// <param name="obj"></param>
     public void RemoveFromPool(GameObject obj)
     {
-        if (obj.CompareTag("Bullet"))
+        Projectile projectile = obj.GetComponent<Projectile>();
+        if (projectile != null)
         {
-            Bullet bulletRef = obj.GetComponent<Bullet>();
-            if (bulletRef != null)
-            {
-                int bulletStyleRef = (int)bulletRef.GetBulletStyle();
-                _objectPool[bulletStyleRef].Remove(obj);
-                return;
-            }
+            int projectileStyleRef = (int)projectile.GetProjectileType();
+            _objectPool[projectileStyleRef].Remove(obj);
         }
-        else if (obj.CompareTag("Food"))
+        else
         {
-            FoodItem foodRef = obj.GetComponent<FoodItem>();
-            if (foodRef != null)
-            {
-                int foodStyleRef = (int)foodRef.GetFoodStyle();
-                _objectPool[foodStyleRef].Remove(obj);
-                return;
-            }
+            Debug.LogError($"<color=orange>Bad use of Pool.RemoveFromPool() - {obj.name} is not a pooled object</color>");
         }
-        Debug.LogError($"<color=orange>Bad use of Pool.RemoveFromPool() - {obj.name} is not a pooled object</color>");
-        
     }
 
     public void AddPoolHolder(GameObject obj)

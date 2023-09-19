@@ -520,7 +520,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5751829246438636370, guid: 2ce7b3f866800fb4fb72d7b091ab7d8a, type: 3}
       propertyPath: m_SortingLayer
-      value: 4
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5751829246438636370, guid: 2ce7b3f866800fb4fb72d7b091ab7d8a, type: 3}
       propertyPath: m_SortingLayerID
@@ -531,11 +531,31 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7987688753085842286, guid: 2ce7b3f866800fb4fb72d7b091ab7d8a, type: 3}
+      propertyPath: bIsParent
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7987688753085842286, guid: 2ce7b3f866800fb4fb72d7b091ab7d8a, type: 3}
+      propertyPath: maxRotation
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 7987688753085842286, guid: 2ce7b3f866800fb4fb72d7b091ab7d8a, type: 3}
+      propertyPath: minRotation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7987688753085842286, guid: 2ce7b3f866800fb4fb72d7b091ab7d8a, type: 3}
       propertyPath: bulletsPerCycle
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7987688753085842286, guid: 2ce7b3f866800fb4fb72d7b091ab7d8a, type: 3}
       propertyPath: bPatternSpawning
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7987688753085842286, guid: 2ce7b3f866800fb4fb72d7b091ab7d8a, type: 3}
+      propertyPath: bulletVelocity.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7987688753085842286, guid: 2ce7b3f866800fb4fb72d7b091ab7d8a, type: 3}
+      propertyPath: bulletVelocity.y
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
