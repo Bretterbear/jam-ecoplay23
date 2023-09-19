@@ -34,25 +34,28 @@ public class BackgroundScroll : MonoBehaviour
 
     void Update()
     {
-        if (bIsMoving)
+        // Don't update anything is we aren't moving
+        if (!bIsMoving)
         {
-            foreach (GameObject obj in objectsUnderControl)
+            return;
+        }
+
+        foreach (GameObject obj in objectsUnderControl)
+        {
+            obj.transform.Translate(moveVector * Time.deltaTime);
+            if (obj.transform.position.x < loopPointLeft)
             {
-                obj.transform.Translate(moveVector * Time.deltaTime);
-                if (obj.transform.position.x < loopPointLeft)
-                {
-                    obj.transform.position = new Vector3(loopPointRight, obj.transform.position.y);
-                }
+                obj.transform.position = new Vector3(loopPointRight, obj.transform.position.y);
             }
         }
     }
 
-    public void stopLayerMovement()
+    public void StopLayerMovement()
     {
         bIsMoving = false;
     }
 
-    public void startLayerMovement()
+    public void StartLayerMovement()
     {
         bIsMoving = true;
     }

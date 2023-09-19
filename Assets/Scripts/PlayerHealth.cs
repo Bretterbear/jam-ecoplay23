@@ -26,14 +26,14 @@ public class PlayerHealth : MonoBehaviour
     }
 
     /// <summary>
-    /// When the player collides with somthing, if it's a bullet, the player takes damage, becomes invincible, and flashes
+    /// When the player collides with something, if it's a bullet, the player takes damage, becomes invincible, and flashes
     /// Triggers the game over state if _layerHealth is <= 0
-    ///     *game over state not yet imlemented
+    ///     *game over state not yet implemented
     /// </summary>
     /// <param name="collision"></param>
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(_bInvincible == false && (collision.gameObject.CompareTag("Bullet") == true || collision.gameObject.CompareTag("Enemy") == true)){
+        if (_bInvincible == false && (collision.gameObject.CompareTag("Bullet") == true || collision.gameObject.CompareTag("Enemy") == true)){
             _bInvincible = true;
             _playerHealth = _playerHealth - collision.gameObject.GetComponent<Damage>().GetDamage();
             StartCoroutine(EDamageFlash());

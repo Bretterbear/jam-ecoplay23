@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _playerMoveSpeed;
 
     [Tooltip("The Rigidbody 2D component of the player object")]
-    [SerializeField]private Rigidbody2D _playerRigidbody;
+    [SerializeField] private Rigidbody2D _playerRigidbody;
 
     private Vector2 _movement;
   
