@@ -37,12 +37,14 @@ public class PlayerHealth : MonoBehaviour
             _bInvincible = true;
             _playerHealth = _playerHealth - collision.gameObject.GetComponent<Damage>().GetDamage();
             StartCoroutine(EDamageFlash());
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/BulletDamage");
         }
         
         if (_playerHealth <= 0f)
         {
             //Will trigger game over state
             gameObject.SetActive(false);
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Die");
         }
     }
 
