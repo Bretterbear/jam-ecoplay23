@@ -40,9 +40,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Default
-    uniqueID: 0
-    locked: 0
   - name: BG_Background
     uniqueID: 1284793237
     locked: 0
@@ -54,4 +51,7 @@ TagManager:
     locked: 0
   - name: PS_ForeGround
     uniqueID: 897085587
+    locked: 0
+  - name: Default
+    uniqueID: 0
     locked: 0
