@@ -38,3 +38,11 @@ public class FoodItem : MonoBehaviour
         transform.Translate(velocity * speed * Time.deltaTime);
     }
 }
+
+/// <summary>
+/// Every bullet style should have an enum associated w/ it for pooling & behavior management
+/// </summary>
+public enum FoodStyle
+{
+    Seaweed
+}
