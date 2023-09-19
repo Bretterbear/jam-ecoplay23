@@ -29,8 +29,9 @@ public class Bullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        transform.SetParent(null);
         // As soon as bullet starts up, gets dumked into the object pool
-        ServiceLocator.Instance.Get<BulletPoolService>().AddToPool(this.gameObject);
+        ServiceLocator.Instance.Get<PoolService>().AddToPool(this.gameObject);
         transform.rotation = Quaternion.Euler(0, 0, rotation);
     }
 
@@ -42,7 +43,7 @@ public class Bullet : MonoBehaviour
         // If this is a deletion in-play, then shout to the bullet pool "take me OOOOUUUT!"
         if (gameObject.scene.isLoaded)
         {
-            ServiceLocator.Instance.Get<BulletPoolService>().RemoveFromPool(this.gameObject);
+            ServiceLocator.Instance.Get<PoolService>().RemoveFromPool(this.gameObject);
         }
     }
 
@@ -76,6 +77,6 @@ public class Bullet : MonoBehaviour
 /// </summary>
 public enum BulletStyle
 {
-    Poke,
-    Ball
+    Poke=0,
+    Ball=1
 }

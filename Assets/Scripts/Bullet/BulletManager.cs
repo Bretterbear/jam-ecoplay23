@@ -14,20 +14,18 @@ public class BulletManager : MonoBehaviour
 {
     private void Awake()
     {
-        ServiceLocator.Instance.Register(new BulletPoolService());
-        ServiceLocator.Instance.Get<BulletPoolService>().Init();
+        ServiceLocator.Instance.Register(new PoolService());
+        ServiceLocator.Instance.Get<PoolService>().Init();
 
-        /*
-        for (int i = 0; i < Enum.GetNames(typeof(BulletStyle)).Length; i++)
+        for (int i = 0; i < Enum.GetNames(typeof(BulletStyle)).Length + Enum.GetNames(typeof(FoodStyle)).Length; i++)
         {
-            GameObject storageHolder = new GameObject();
-
+            GameObject storageHolder = new GameObject($"ObjPool-{i}");
+            ServiceLocator.Instance.Get<PoolService>().AddPoolHolder(storageHolder);
         }
-        */
     }
 
     private void OnDestroy()
     {
-        ServiceLocator.Instance.Unregister<BulletPoolService>();
+        ServiceLocator.Instance.Unregister<PoolService>();
     }
 }

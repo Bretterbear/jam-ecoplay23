@@ -28,14 +28,14 @@ public class BulletSpawner : MonoBehaviour
     float[] rotations;
 
     // --- Private Variable Declarations --- //
-    private BulletPoolService _linkBulletPool;      //Service Link to the bulletPool
+    private PoolService _linkBulletPool;      //Service Link to the bulletPool
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-        _linkBulletPool = ServiceLocator.Instance.Get<BulletPoolService>();
+        _linkBulletPool = ServiceLocator.Instance.Get<PoolService>();
 
         timer = cooldown;
 
@@ -93,10 +93,14 @@ public class BulletSpawner : MonoBehaviour
         for (int i = 0; i < bulletsPerCycle; i++)
         {
             //For each requisite
-            spawnedBullets[i] = _linkBulletPool.GetBulletFromPoop(BulletStyle.Poke);
+            spawnedBullets[i] = _linkBulletPool.GetProjectileFromPoop((int) BulletStyle.Poke);
             if (spawnedBullets[i] == null)
             {
                 spawnedBullets[i] = MakeNewBullet(BulletStyle.Poke);
+            }
+            else
+            {
+                //Debug.Log($"<color=blue>We're spitting {spawnedBullets[i].name}</color>");
             }
 
             SetBulletProperties(spawnedBullets[i].GetComponent<Bullet>(), i);
@@ -123,13 +127,15 @@ public class BulletSpawner : MonoBehaviour
     /// </summary>
     public void SetBulletProperties(Bullet bullet, int i)
     {
-        bullet.transform.SetParent(transform);
-        bullet.transform.localPosition = Vector2.zero;
+        //bullet.transform.SetParent(transform);
+        //bullet.transform.localPosition = Vector2.zero;
 
-        if (!bIsParent)
-        {
-            bullet.transform.SetParent(null);
-        }
+        //if (!bIsParent)
+        //{
+        //    bullet.transform.SetParent(null);
+        //}
+
+        bullet.transform.position = transform.position;
 
         bullet.timeToLive = 6;              //BH| For now this is a magic number, will be proper later
         bullet.rotation = rotations[i];
