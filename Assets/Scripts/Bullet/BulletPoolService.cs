@@ -12,6 +12,9 @@ public class BulletPoolService : IService
     private List<GameObject>[] _objectPool;
     private int numberOfBulletStyles;
 
+    /// <summary>
+    /// Run just after registering the service in a level to make sure pools are ready to start holding
+    /// </summary>
     public void Init()
     {
         numberOfBulletStyles = Enum.GetNames(typeof(BulletStyle)).Length;
@@ -36,7 +39,6 @@ public class BulletPoolService : IService
         {
             if (!_objectPool[(int)style][i].activeSelf)
             {
-                Debug.Log("Pulling bullet from pool");
                 _objectPool[(int)style][i].SetActive(true);
                 return _objectPool[(int)style][i];
             }
@@ -59,7 +61,7 @@ public class BulletPoolService : IService
         }
         else
         {
-            Debug.LogError($"Bad use of BulletPool.AddToPool() - Attempted to add a non-bullet object {obj.name} into BulletPool");
+            Debug.LogError($"<color=orange>Bad use of BulletPool.AddToPool() - Attempted to add a non-bullet object {obj.name} into BulletPool</color>");
         }
     }
 
@@ -78,7 +80,7 @@ public class BulletPoolService : IService
         }
         else
         {
-            Debug.LogError($"Bad use of BulletPool.RemoveFromPool() - {obj.name} is not a bullet");
+            Debug.LogError($"<color=orange>Bad use of BulletPool.RemoveFromPool() - {obj.name} is not a bullet</color>");
         }
     }
 }

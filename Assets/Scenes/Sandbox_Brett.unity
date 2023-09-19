@@ -176,8 +176,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7290293580357150164, guid: c81cc5bc5f7bf564ea47dca35b8af90f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f7c5f3118f4ad5147b7d894235620167, type: 3}
+    - target: {fileID: 7290293580357150164, guid: c81cc5bc5f7bf564ea47dca35b8af90f, type: 3}
       propertyPath: m_SortingLayer
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7290293580357150164, guid: c81cc5bc5f7bf564ea47dca35b8af90f, type: 3}
       propertyPath: m_SortingLayerID
@@ -284,6 +288,42 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1357364834 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7845953247799808216, guid: 643d5a6e7437b7c41aef78a1c690a44b, type: 3}
+  m_PrefabInstance: {fileID: 948431667223170808}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1538801057
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1538801058}
+  m_Layer: 0
+  m_Name: BulletPool_Poke
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1538801058
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1538801057}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1357364834}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2119358627 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 7290293580357150164, guid: c81cc5bc5f7bf564ea47dca35b8af90f, type: 3}
@@ -341,9 +381,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelComponents
       objectReference: {fileID: 0}
+    - target: {fileID: 3475163011737452619, guid: 643d5a6e7437b7c41aef78a1c690a44b, type: 3}
+      propertyPath: poolLocation.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3475163011737452619, guid: 643d5a6e7437b7c41aef78a1c690a44b, type: 3}
+      propertyPath: poolLocation.Array.data[0]
+      value: 
+      objectReference: {fileID: 1538801057}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 7845953247799808216, guid: 643d5a6e7437b7c41aef78a1c690a44b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1538801058}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 643d5a6e7437b7c41aef78a1c690a44b, type: 3}
 --- !u!1001 &3227589896802770552
@@ -354,6 +405,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2007332527701260424, guid: 65fb7c3496e307849a78d83b81004c4d, type: 3}
+      propertyPath: bIsMoving
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2007332527701260424, guid: 65fb7c3496e307849a78d83b81004c4d, type: 3}
+      propertyPath: scrollSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3777447453993484366, guid: 65fb7c3496e307849a78d83b81004c4d, type: 3}
+      propertyPath: bIsMoving
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6311505971489787881, guid: 65fb7c3496e307849a78d83b81004c4d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -457,7 +520,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5751829246438636370, guid: 2ce7b3f866800fb4fb72d7b091ab7d8a, type: 3}
       propertyPath: m_SortingLayer
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5751829246438636370, guid: 2ce7b3f866800fb4fb72d7b091ab7d8a, type: 3}
       propertyPath: m_SortingLayerID
@@ -470,6 +533,10 @@ PrefabInstance:
     - target: {fileID: 7987688753085842286, guid: 2ce7b3f866800fb4fb72d7b091ab7d8a, type: 3}
       propertyPath: bulletsPerCycle
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7987688753085842286, guid: 2ce7b3f866800fb4fb72d7b091ab7d8a, type: 3}
+      propertyPath: bPatternSpawning
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -1,4 +1,5 @@
 using Services;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,14 +12,18 @@ using UnityEngine;
 /// </summary>
 public class BulletManager : MonoBehaviour
 {
-    [Header("Pool Holding Locations in Heirarchy")]
-    [Tooltip("Game Object References")]
-    public string beatmap;
-
     private void Awake()
     {
         ServiceLocator.Instance.Register(new BulletPoolService());
         ServiceLocator.Instance.Get<BulletPoolService>().Init();
+
+        /*
+        for (int i = 0; i < Enum.GetNames(typeof(BulletStyle)).Length; i++)
+        {
+            GameObject storageHolder = new GameObject();
+
+        }
+        */
     }
 
     private void OnDestroy()

@@ -9,6 +9,7 @@ using UnityEngine;
 //TODO | 1 Extend pattern spawn to an enum w/ your spawn pattern presets (out of rando-vs-spawn)
 //TODO | 2 Make a variable (Serial or pattern selectable) bullet type poolservice call
 //TODO | 3 Off of 2, add some pattern / serial bullet info to add into initialization for overriding bullet base in MakeNewBullet()
+//TODO | 4 Offload setting of bullet dynamics into a bullet local function
 
 public class BulletSpawner : MonoBehaviour
 {
@@ -106,15 +107,13 @@ public class BulletSpawner : MonoBehaviour
     }
 
     /// <summary>
-    /// Instantiates a new bullet, adds to the object pooling system & returns it
+    /// Instantiates a new bullet and returns it; might be unnecessary as a func
     /// </summary>
     /// <param name="style">style of bullet to be instatiated</param>
     /// <returns>new bullet in pool</returns>
     public GameObject MakeNewBullet(BulletStyle style)
     {
         GameObject newBullet = Instantiate(resourceBullet, transform);
-
-        _linkBulletPool.AddToPool(newBullet);
 
         return newBullet;
     }
@@ -132,7 +131,7 @@ public class BulletSpawner : MonoBehaviour
             bullet.transform.SetParent(null);
         }
 
-        bullet.timeToLive = 2;
+        bullet.timeToLive = 6;              //BH| For now this is a magic number, will be proper later
         bullet.rotation = rotations[i];
         bullet.speed = bulletSpeed;
         bullet.velocity = bulletVelocity;
