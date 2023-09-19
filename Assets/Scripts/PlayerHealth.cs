@@ -33,15 +33,27 @@ public class PlayerHealth : MonoBehaviour
     /// <param name="collision"></param>
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (_bInvincible == false && (collision.gameObject.CompareTag("Bullet") == true || collision.gameObject.CompareTag("Enemy") == true)){
-            _bInvincible = true;
-            _playerHealth = _playerHealth - collision.gameObject.GetComponent<Damage>().GetDamage();
-            StartCoroutine(EDamageFlash());
+        if (_bInvincible == false 
+            && (collision.gameObject.CompareTag("Bullet") == true || collision.gameObject.CompareTag("Enemy") == true))
+        {
+            PlayerHasBeenHit(collision);
         }
-        
+
+        CheckPlayerHealth();
+    }
+
+    void PlayerHasBeenHit(Collider2D collision)
+    {
+        _bInvincible = true;
+        _playerHealth = _playerHealth - collision.gameObject.GetComponent<Damage>().GetDamage();
+        StartCoroutine(EDamageFlash());
+    }
+
+    void CheckPlayerHealth()
+    {
         if (_playerHealth <= 0f)
         {
-            //Will trigger game over state
+            // Will trigger game over state
             gameObject.SetActive(false);
         }
     }

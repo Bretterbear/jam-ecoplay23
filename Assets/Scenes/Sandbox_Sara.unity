@@ -131,6 +131,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 999579852797293726, guid: c81cc5bc5f7bf564ea47dca35b8af90f, type: 3}
+      propertyPath: _playerDodgeTime
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 999579852797293726, guid: c81cc5bc5f7bf564ea47dca35b8af90f, type: 3}
+      propertyPath: _playerMoveSpeed
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 999579852797293726, guid: c81cc5bc5f7bf564ea47dca35b8af90f, type: 3}
+      propertyPath: _playerDodgeMultiplier
+      value: 400
+      objectReference: {fileID: 0}
     - target: {fileID: 3915413265965348179, guid: c81cc5bc5f7bf564ea47dca35b8af90f, type: 3}
       propertyPath: m_Name
       value: Player
@@ -181,7 +193,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: f7c5f3118f4ad5147b7d894235620167, type: 3}
     - target: {fileID: 7290293580357150164, guid: c81cc5bc5f7bf564ea47dca35b8af90f, type: 3}
       propertyPath: m_SortingLayer
-      value: 4
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7290293580357150164, guid: c81cc5bc5f7bf564ea47dca35b8af90f, type: 3}
       propertyPath: m_SortingLayerID
