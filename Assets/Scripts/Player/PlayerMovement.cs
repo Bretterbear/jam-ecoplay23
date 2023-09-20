@@ -12,8 +12,11 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Multiplier for movement during the dodge")]
     [SerializeField] private float _playerDodgeMultiplier;
     
-    [Tooltip("Multiplier for movement during the dodge")]
+    [Tooltip("Time spent doing the dodge (invincible for this amount of time)")]
     [SerializeField] private float _playerDodgeTime;
+
+    [Tooltip("Cost for doing the dodge")]
+    [SerializeField] private float _playerDodgeCost;
 
     [Tooltip("The Rigidbody 2D component of the player object")]
     [SerializeField] private Rigidbody2D _playerRigidbody;
@@ -21,12 +24,17 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _movement;
     private bool _bDodging = false;
     private PlayerHealth playerHealth;
+    private PlayerEnergy playerEnergy;
 
     void Start()
     {
         playerHealth = GetComponent<PlayerHealth>();
         if (playerHealth == null)
             Debug.LogError("Couldn't grab the player health component");
+
+        playerEnergy = GetComponent<PlayerEnergy>();
+        if (playerHealth == null)
+            Debug.LogError("Couldn't grab the player energy component");
     }
 
     void Update()
@@ -34,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
         if (_bDodging)
             return;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && playerEnergy.PlayerEnergyAmount >= _playerDodgeCost)
         {
             DoDodge();
             return;
@@ -57,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _bDodging = true;
         playerHealth.IsInvincible = true;
+        playerEnergy.PlayerEnergyAmount -= _playerDodgeCost;
 
         _movement *= _playerDodgeMultiplier;
 
