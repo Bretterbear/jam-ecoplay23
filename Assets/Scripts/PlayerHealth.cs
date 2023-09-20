@@ -56,7 +56,7 @@ public class PlayerHealth : MonoBehaviour
     {
         for (int i = 0; i < 10; i++) 
         {
-            _playerSprite.color = new Color(0, 0, 0, 1);
+            _playerSprite.color = new Color(0.5f, 0.5f, 0.5f, 1f);
             yield return new WaitForSeconds(0.1f);
             _playerSprite.color = _normalColor;
             yield return new WaitForSeconds(0.1f);
