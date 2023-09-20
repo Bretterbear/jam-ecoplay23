@@ -1,8 +1,4 @@
 using Services;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 //BH   | Notes
@@ -13,31 +9,40 @@ using UnityEngine;
 
 public class BulletSpawner : MonoBehaviour
 {
-    public GameObject resourceBullet;
-    public float minRotation;
-    public float maxRotation;
-    public int bulletsPerCycle;
-    public bool bPatternSpawning;
-    public bool bIsParent;
+    // --- Serialized Variable Declarations --- //
+    [Header("Spawner Properties")]
+    [Tooltip("Minimum firing arc in degrees")]
+    [SerializeField] private float minRotation;
+    [Tooltip("Maximum firing arc in degrees")]
+    [SerializeField] private float maxRotation;
+    [Tooltip("Bullet count per shot")]
+    [SerializeField] private int bulletsPerCycle;
+    [Tooltip("Shoot equidistant or at random")]
+    [SerializeField] private bool bPatternSpawning;                 // Likely move to random mode once we have pattern
+    [Tooltip("Seconds between shots")]
+    [SerializeField] private float shootingCooldown= 0.5f;          // Default val not a bad idea
+    [Tooltip("Initial bullet velocity")]
+    [SerializeField] private float bulletSpeed;                     // Likely end up as part of a SerializedObject
+    [Tooltip("Unit Vector please - controls bullet orientation")]
+    [SerializeField] private Vector2 bulletVelocity;                // Likely to remove this
 
-    public float cooldown;
-    public float bulletSpeed;
-    public Vector2 bulletVelocity;
-
-    float timer;
-    float[] rotations;
+    [Header("Prefab References")]
+    [Tooltip("Bullet - add more please")]
+    [SerializeField] private GameObject resourceBullet;
 
     // --- Private Variable Declarations --- //
-    private BulletPoolService _linkBulletPool;      //Service Link to the bulletPool
+    private float shootingTimer;                // Contains current countdown to next shot
+    private float[] rotations;                  // Contains firing rotations for shot burst
+    private PoolService _linkBulletPool;        // Service link to the PoolService
 
-
-
-    // Start is called before the first frame update
+    /// <summary>
+    /// Initial set up of pooling link, shooting positions & timer
+    /// </summary>
     void Start()
     {
-        _linkBulletPool = ServiceLocator.Instance.Get<BulletPoolService>();
+        _linkBulletPool = ServiceLocator.Instance.Get<PoolService>();
 
-        timer = cooldown;
+        shootingTimer = shootingCooldown;
 
         rotations = new float[bulletsPerCycle];
         if (bPatternSpawning)
@@ -47,16 +52,23 @@ public class BulletSpawner : MonoBehaviour
 
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Shot clock & spawn calls
+    /// </summary>
     void Update()
     {
-        if (timer <= 0)
+        if (shootingTimer <= 0)
         {
             SpawnBullets();
-            timer = cooldown;
+            shootingTimer = shootingCooldown;
         }
-        timer -= Time.deltaTime;
+        shootingTimer -= Time.deltaTime;
     }
+
+    /// <summary>
+    /// Sets random shooting locations within the allowabla arc
+    /// </summary>
+    /// <returns></returns>
     public float[] RotationsRandom()
     {
         for (int i = 0; i < bulletsPerCycle; i++)
@@ -68,7 +80,8 @@ public class BulletSpawner : MonoBehaviour
     }
 
     /// <summary>
-    ///BH| Defines an even number of bullet spawn points within minRotations -> maxRotations arc
+    /// Defines an even number of bullet spawn points within minRotations -> maxRotations arc
+    /// return value is useless, but we're changing other stuff anyways
     /// </summary>
     public float[] RotationsDistributed()
     {
@@ -81,6 +94,10 @@ public class BulletSpawner : MonoBehaviour
         return rotations;
     }
 
+    /// <summary>
+    /// Bullet spawning function, will get much more sophisticated w/ time
+    /// </summary>
+    /// <returns></returns>
     public GameObject[] SpawnBullets()
     {
         //BH| Switch up the pattern if we're in random-spawn mode
@@ -93,13 +110,15 @@ public class BulletSpawner : MonoBehaviour
         for (int i = 0; i < bulletsPerCycle; i++)
         {
             //For each requisite
-            spawnedBullets[i] = _linkBulletPool.GetBulletFromPoop(BulletStyle.Poke);
+            spawnedBullets[i] = _linkBulletPool.GetProjectileFromPoop(ProjectileType.Bullet_Poke);
             if (spawnedBullets[i] == null)
             {
-                spawnedBullets[i] = MakeNewBullet(BulletStyle.Poke);
+                spawnedBullets[i] = MakeNewBullet(ProjectileType.Bullet_Poke);
             }
+            // else { Debug.Log($"<color=blue>We're spitting {spawnedBullets[i].name}</color>"); }
 
-            SetBulletProperties(spawnedBullets[i].GetComponent<Bullet>(), i);
+            spawnedBullets[i].transform.position = transform.position;
+            SetProjectileProperties(spawnedBullets[i], bulletVelocity, bulletSpeed, rotations[i], 6f);
         }
 
         return spawnedBullets;
@@ -111,8 +130,9 @@ public class BulletSpawner : MonoBehaviour
     /// </summary>
     /// <param name="style">style of bullet to be instatiated</param>
     /// <returns>new bullet in pool</returns>
-    public GameObject MakeNewBullet(BulletStyle style)
+    public GameObject MakeNewBullet(ProjectileType style)
     {
+        // As we add bullet types, we'll have the spawner have an array of prefab bullet types
         GameObject newBullet = Instantiate(resourceBullet, transform);
 
         return newBullet;
@@ -123,13 +143,7 @@ public class BulletSpawner : MonoBehaviour
     /// </summary>
     public void SetBulletProperties(Bullet bullet, int i)
     {
-        bullet.transform.SetParent(transform);
-        bullet.transform.localPosition = Vector2.zero;
-
-        if (!bIsParent)
-        {
-            bullet.transform.SetParent(null);
-        }
+        bullet.transform.position = transform.position;
 
         bullet.timeToLive = 6;              //BH| For now this is a magic number, will be proper later
         bullet.rotation = rotations[i];
@@ -137,5 +151,27 @@ public class BulletSpawner : MonoBehaviour
         bullet.velocity = bulletVelocity;
 
         bullet.tag = "Bullet";
+    }
+
+    /// <summary>
+    /// Set ballistic properties of projectile for 'firing'
+    /// </summary>
+    /// <param name="obj">object to be fired - must be projectile inheriting</param>
+    /// <param name="vel">unit velocity vector - (generally [1,0])</param>
+    /// <param name="spd">speed of projectile - positive float </param>
+    /// <param name="rot">rotational float - in degrees</param>
+    /// <param name="ttl">time to live in seconds - float</param>
+    public void SetProjectileProperties(GameObject obj, Vector2 vel, float spd, float rot, float ttl)
+    {
+        Projectile projectile = obj.GetComponent<Projectile>();
+        if (projectile == null)
+        {
+            Debug.LogError($"<color=orange>ERROR - {obj.name} not a fireable projectile </color>");
+        }
+
+        projectile.velocity = vel;
+        projectile.rotation = rot;
+        projectile.speed = spd;
+        projectile.timeToLive = ttl;
     }
 }

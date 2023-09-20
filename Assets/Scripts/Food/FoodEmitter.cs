@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using Services;
 using UnityEngine;
 
 public class FoodEmitter : MonoBehaviour
@@ -24,9 +23,11 @@ public class FoodEmitter : MonoBehaviour
     // --- Non-Serialized Variable Declarations --- //
     private float spawnTimer = 1f;
     private int controlPointCount = 0;
+    private PoolService _poolService;
 
     private void Start()
     {
+        _poolService = ServiceLocator.Instance.Get<PoolService>();
         // Bounds checking nothing derpy was put into the cooldown min & max values
         _coolDownMax = _coolDownMin > _coolDownMax ? _coolDownMin : _coolDownMax;
 
@@ -41,7 +42,6 @@ public class FoodEmitter : MonoBehaviour
 
         if (spawnTimer <= 0f)
         {
-            Debug.Log("<color=cyan>FIRING FOOD</color>");
             ResetTimer();
             FireFood();
         }
@@ -50,23 +50,47 @@ public class FoodEmitter : MonoBehaviour
     private void FireFood()
     {
         int fireIndex = Random.Range(0, controlPointCount);
+        Vector3 targetVector = makeTargetingVector(fireIndex);
+
+        GameObject foodInstance = _poolService.GetProjectileFromPoop(ProjectileType.Food_Seaweed);
+        if (foodInstance == null)
+        {
+            foodInstance = MakeNewFood(ProjectileType.Food_Seaweed, fireIndex);
+        }
+
+        FoodItem foodBlast = foodInstance.GetComponent<FoodItem>();
+        
+        foodBlast.transform.position = FoodSpawnPoints[fireIndex].transform.position;
+        foodBlast.timeToLive = 12f;
+        foodBlast.speed = 3f;
+        foodBlast.velocity = targetVector;
+    }
+
+    private Vector3 makeTargetingVector(int fireIndex)
+    {
 
         float xRand = Random.Range(-_xSpread, _xSpread);
         float yRand = Random.Range(-_ySpread, _ySpread);
         Vector3 targetAngle = new Vector3(xRand, yRand, 0);
 
         targetAngle = (targetAngle - FoodSpawnPoints[fireIndex].transform.position).normalized;
-
-        FoodItem foodInstance = Instantiate(FoodSource, FoodSpawnPoints[fireIndex].transform).GetComponent<FoodItem>();
-        
-        foodInstance.transform.SetParent(null);
-        foodInstance.timeToLive = 12f;
-        foodInstance.speed = 3f;
-        foodInstance.velocity = targetAngle;
-        }
+        return targetAngle;
+    }
 
     private void ResetTimer()
     {
         spawnTimer = UnityEngine.Random.Range(_coolDownMin, _coolDownMax);
+    }
+
+    /// <summary>
+    /// Instantiates a new food and returns it; might be unnecessary as a func
+    /// </summary>
+    /// <param name="style">style of food to be instatiated</param>
+    /// <returns>new food</returns>
+    public GameObject MakeNewFood(ProjectileType style, int fireIndex)
+    {
+        GameObject newFood = Instantiate(FoodSource, FoodSpawnPoints[fireIndex].transform);
+
+        return newFood;
     }
 }

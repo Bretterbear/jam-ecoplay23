@@ -1,48 +1,48 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-//BH| Note - should shift food item & bullet basic behavior to an inheritable base class
-public class FoodItem : MonoBehaviour
-{
+//BH    | Notes
+//CONS  | Add grabbing child transform to star func to allow for VFX / sprite alteration on the fly 
 
-    // --- Serlialized Variable Declarations --- //
-    [Header("Food Properties")]
+/// <summary>
+/// Contains Food behavior inherited from Projectile
+/// </summary>
+public class FoodItem : Projectile
+{
+    // --- Serialized Variable Declarations --- //
+    [Header("Food Properties")] 
     [Tooltip("Food nutrition value (default to 1")]
     [SerializeField] private float foodValue = 1f;
 
-    // --- Non-Serialized Variable Declarations --- //
-    [NonSerialized] public Vector2 velocity;            // Set by FoodSpawner) that fires it
-    [NonSerialized] public float speed = 1f;            // BH|CON Consider changing, will become variable overtime for certain bullet patterns
-    [NonSerialized] public float rotation;              // Set by FSS that fires it
-    [NonSerialized] public float timeToLive = 6f;       // Set by FS
-
-    private void Update()
+    /// <summary> 
+    /// Sets parent to null & adds projectile into the PoolService 
+    /// </summary>
+    protected override void Start()
     {
-        timeToLive -= Time.deltaTime;
-        if (timeToLive < 0f)
-        {
-            Destroy(gameObject);
-        }
-        MoveFood();
+        base.Start();
     }
 
-    public float GetFoodValue()
+    /// <summary> 
+    /// Inheriting from Projectile base class to automatically carry out motion & TTL deactivation 
+    /// </summary>
+    protected override void Update()
     {
-        return foodValue;
+        base.Update();
     }
 
-    void MoveFood()
+    /// <summary> 
+    /// Should never need to destroy a pooled object mid-level, but if you do, will try to unpool itself before it dies 
+    /// </summary>
+    protected override void OnDestroy()
     {
-        transform.Translate(velocity * speed * Time.deltaTime);
+        base.OnDestroy();
     }
-}
 
-/// <summary>
-/// Every bullet style should have an enum associated w/ it for pooling & behavior management
-/// </summary>
-public enum FoodStyle
-{
-    Seaweed
+    /// <summary>
+    /// Getter function inherited from Projectile base class
+    /// </summary>
+    /// <returns>Enum ProjectileType value assigned to object</returns>
+    public override ProjectileType GetProjectileType()
+    {
+        return base.GetProjectileType();
+    }
 }
