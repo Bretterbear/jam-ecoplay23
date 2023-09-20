@@ -52,6 +52,9 @@ public class PlayerHealth : MonoBehaviour
         _bInvincible = true;
         _playerHealth = _playerHealth - collision.gameObject.GetComponent<Damage>().GetDamage();
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/BulletDamage");
+
+        // Set the object hitting the player to inactive (spawner should take care of it from here)
+        collision.gameObject.SetActive(false);
         StartCoroutine(EDamageFlash());
     }
 
