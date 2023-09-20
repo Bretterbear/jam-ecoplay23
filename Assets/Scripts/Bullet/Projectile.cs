@@ -14,6 +14,8 @@ public class Projectile : MonoBehaviour
     [Header("Projectile Properties")]
     [Tooltip("Projectile type (Bullet_* / Food_*)")]
     [SerializeField] private ProjectileType type;
+    [Tooltip("Projectile value - will be added, set to negative for subtraction (default 1f)")]
+    [SerializeField] private float value = 1f;
 
     // --- Non-Serialized Variable Declarations --- //
     [NonSerialized] public Vector2 velocity;            // Unit vector modified by speed to give directionality (generally [1,0])
@@ -69,6 +71,11 @@ public class Projectile : MonoBehaviour
             this.transform.rotation = Quaternion.Euler(0,0,rotation);
         }
         transform.Translate(velocity * speed * Time.deltaTime);
+    }
+
+    public virtual float GetProjectileValue()
+    {
+        return value;
     }
 
     public virtual ProjectileType GetProjectileType()

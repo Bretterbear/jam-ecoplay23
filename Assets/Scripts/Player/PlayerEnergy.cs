@@ -20,7 +20,7 @@ public class PlayerEnergy : MonoBehaviour
         set
         {
             _playerEnergy = value;
-            Mathf.Clamp(_playerEnergy, 0f, _playerEnergyMax);
+            _playerEnergy = Mathf.Clamp(_playerEnergy, 0f, _playerEnergyMax);
         }
     }
     
@@ -39,6 +39,28 @@ public class PlayerEnergy : MonoBehaviour
     void Update()
     {
         PlayerEnergyAmount -= _playerEnergyDecay * Time.deltaTime;
-        Debug.Log("PlayerEnergyAmount: " + PlayerEnergyAmount);
     }
+
+    /// <summary>
+    /// When the player collides with something, if it's a food thing, the player takes damage, becomes invincible, and flashes
+    /// Triggers the game over state if _layerHealth is <= 0
+    ///     *game over state not yet implemented
+    /// </summary>
+    /// <param name="collision"></param>
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Food") == true)
+        {
+            PlayerFoundFood(collision);
+        }
+    }
+
+    void PlayerFoundFood(Collider2D collision)
+    {
+        _playerEnergy += collision.gameObject.GetComponent<Projectile>().GetProjectileValue();
+        Debug.Log("Food was found! Player energy: " + _playerEnergy);
+        // Set the object hitting the player to inactive (spawner should take care of it from here)
+        collision.gameObject.SetActive(false);
+    }
+
 }
