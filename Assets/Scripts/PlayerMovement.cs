@@ -20,6 +20,14 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 _movement;
     private bool _bDodging = false;
+    private PlayerHealth playerHealth;
+
+    void Start()
+    {
+        playerHealth = GetComponent<PlayerHealth>();
+        if (playerHealth == null)
+            Debug.LogError("Couldn't grab the player health component");
+    }
 
     void Update()
     {
@@ -48,12 +56,9 @@ public class PlayerMovement : MonoBehaviour
     void DoDodge()
     {
         _bDodging = true;
+        playerHealth.IsInvincible = true;
 
-        Vector2 mouseScreenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-        Vector2 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
-        mouseWorldPosition -= _playerRigidbody.position;
-        mouseWorldPosition.Normalize();
-        _movement = mouseWorldPosition;
+        _movement *= _playerDodgeMultiplier;
 
         StartCoroutine(EDodgingTimer());
     }
@@ -67,5 +72,6 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(_playerDodgeTime);
 
         _bDodging = false;
+        playerHealth.IsInvincible = false;
     }
 }

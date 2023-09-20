@@ -16,6 +16,11 @@ public class PlayerHealth : MonoBehaviour
     private Color _normalColor;
 
     private bool _bInvincible = false;
+    public bool IsInvincible
+    {
+        get { return _bInvincible; }
+        set { _bInvincible = value; }
+    }
 
     /// <summary>
     /// Grabs the normal color of the player sprite to use for damage flash
