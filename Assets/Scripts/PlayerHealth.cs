@@ -10,8 +10,7 @@ public class PlayerHealth : MonoBehaviour
     [Tooltip("The total health of the player")]
     [SerializeField] private float _playerHealth;
 
-    [Tooltip("The player's sprite renderer")]
-    [SerializeField] private SpriteRenderer _playerSprite;
+    private SpriteRenderer _playerSprite;
 
     private Color _normalColor;
 
@@ -22,6 +21,7 @@ public class PlayerHealth : MonoBehaviour
     /// </summary>
     void Start()
     {
+        _playerSprite = this.GetComponentInChildren<SpriteRenderer>();
         _normalColor = _playerSprite.color;
     }
 
