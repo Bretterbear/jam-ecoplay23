@@ -171,7 +171,7 @@ public class BulletShooter : MonoBehaviour
 
         SpriteRenderer spriteRenderer = obj.GetComponent<SpriteRenderer>();
 
-        spriteRenderer.color = colors[(int) (Time.time*2) % (colors.Length)];
+        //spriteRenderer.color = colors[(int) (Time.time*2) % (colors.Length)];
 
     }
 }
