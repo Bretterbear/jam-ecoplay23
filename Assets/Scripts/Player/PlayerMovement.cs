@@ -6,6 +6,9 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Player Movement Settings")]
 
+    [Tooltip("Set controls to mouse for direction? Or leave as WASD")]
+    [SerializeField] private bool _bUseMouse;
+
     [Tooltip("Determines speed of player movement")]
     [SerializeField] private float _playerMoveSpeed;
 
@@ -35,16 +38,34 @@ public class PlayerMovement : MonoBehaviour
         playerEnergy = GetComponent<PlayerEnergy>();
         if (playerHealth == null)
             Debug.LogError("Couldn't grab the player energy component");
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
     {
         if (_bDodging)
+        {
+            // Temp code for testing if we like using the mouse for movement (even during a dodge)
+            if (_bUseMouse)
+            {
+                _movement.x = Input.GetAxisRaw("Mouse X");
+                _movement.y = Input.GetAxisRaw("Mouse Y");
+            }
             return;
+        }
+            
 
         if (Input.GetKeyDown(KeyCode.Space) && playerEnergy.PlayerEnergyAmount >= _playerDodgeCost)
         {
             DoDodge();
+            return;
+        }
+
+        if (_bUseMouse)
+        {
+            _movement.x = Input.GetAxisRaw("Mouse X");
+            _movement.y = Input.GetAxisRaw("Mouse Y");
             return;
         }
 
