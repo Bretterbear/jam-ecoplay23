@@ -5,6 +5,8 @@ public class FoodEmitter : MonoBehaviour
 {
     // --- Serialized Variable Declarations --- //
     [Header("Food Spawn Properties")]
+    [Tooltip("How fast does food move?")]
+    [SerializeField, MinAttribute(0.1f)] private float foodSpeed = 2;
     [Tooltip("Minimum cooldown time between food fires")]
     [SerializeField,MinAttribute(0.1f)] private float _coolDownMin=.1f;
     [Tooltip("Minimum cooldown time between food fires")]
@@ -66,7 +68,7 @@ public class FoodEmitter : MonoBehaviour
 
         foodBlast.transform.position = FoodSpawnPoints[fireIndex].transform.position;
         foodBlast.timeToLive = 12f;
-        foodBlast.speed = 3f;
+        foodBlast.speed = foodSpeed;
         foodBlast.rotation = twistDegrees;
         foodBlast.velocity = Vector2.right;
     }
