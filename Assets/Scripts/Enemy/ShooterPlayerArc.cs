@@ -32,6 +32,12 @@ public class ShooterPlayerArc : ShooterBase
     [Header("Spawner Properties")]
     [Tooltip("Firing arc in degrees")]
     [SerializeField, Min(0)] private float shootingArc;
+    [Tooltip("Target is Player")]
+    [SerializeField] private bool _bTargetPlayer = true;
+    [Tooltip("Random Spray Mode ySpread")]
+    [SerializeField] private float randModeYSpray=4f;
+    [Tooltip("Random Spray Mode Target")]
+    [SerializeField] GameObject backWallTargetForRandom;
 
     private Vector3 playerLocation;
     private GameManagerService _linkGMService;
@@ -44,13 +50,21 @@ public class ShooterPlayerArc : ShooterBase
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
         shootingTimer -= Time.deltaTime;
 
         if (shootingTimer < 0)
         {
-            Targeting();
+            if (_bTargetPlayer)
+            {
+                Targeting();
+            }
+            else
+            {
+                RandomTarget();
+            }
+
             for (int i = 0; i < shotCount; i++)
             {
                 FireBullet(GetABullet(), i);
@@ -59,7 +73,7 @@ public class ShooterPlayerArc : ShooterBase
         }
     }
 
-    private void Targeting()
+    protected void Targeting()
     {
         playerLocation = _linkGMService.GetPlayerLocation();
 
@@ -82,7 +96,25 @@ public class ShooterPlayerArc : ShooterBase
         setShootPoints(directionToPlayer);
     }
 
-    private void setShootPoints(Vector3 targetVector)
+    protected void RandomTarget()
+    {
+        Vector3 backWallLocation = backWallTargetForRandom.transform.position;
+        backWallLocation.y = backWallLocation.y + UnityEngine.Random.Range(-randModeYSpray, randModeYSpray);
+        Vector3 directionToPlayer = backWallLocation - transform.position;
+
+        // Calculate the angle in degrees
+        float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
+
+        // Create a rotation quaternion based on the angle
+        Quaternion lookRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        // Smoothly rotate the enemy towards the player
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 10f * Time.deltaTime);
+        setShootPoints(directionToPlayer);
+
+    }
+
+    protected void setShootPoints(Vector3 targetVector)
     {
         float degreeOffset = shootingArc / shotCount;
 
