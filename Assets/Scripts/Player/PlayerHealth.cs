@@ -21,6 +21,12 @@ public class PlayerHealth : MonoBehaviour
         set { _bInvincible = value; }
     }
 
+    private GameManagerService _linkGMService;
+
+    void Awake(){
+        _linkGMService = ServiceLocator.Instance.Get<GameManagerService>();
+    }
+
     /// <summary>
     /// SW| Grabs the normal color of the player sprite to use for damage flash
     /// </summary>
@@ -32,8 +38,14 @@ public class PlayerHealth : MonoBehaviour
 
     /// <summary>
     /// When the player collides with something, if it's a bullet, the player takes damage, becomes invincible, and flashes
-    /// Triggers the game over state if _layerHealth is <= 0
+    /// Triggers the game over state if _playerHealth is <= 0
     ///     *game over state not yet implemented
+    ///     
+    /// NEW FUNCTIONALITY FOR WALLS TO BE IMPLEMENTED
+    /// When player collides with collider tagged "Wall", decrement playerLives in GameManagerService
+    /// If not 0, make Splash invincible and push to position 0, 0 (or similar)
+    /// If 0, game over state
+    /// 
     /// </summary>
     /// <param name="collision"></param>
     void OnTriggerEnter2D(Collider2D collision)
