@@ -1,5 +1,6 @@
 using Services;
 
+
 /// <summary>
 /// Used for level-wide variable tracking (screen bullet density, player health / energy, etc)
 /// </summary>
@@ -12,6 +13,8 @@ public class GameManagerService : IService
     // Player statistics
     private float playerEnergy;
     private int playerLives;
+
+    
 
     /// <summary>
     /// Called from GameManager
@@ -59,6 +62,12 @@ public class GameManagerService : IService
     {
         //BH| REMINDER - Remove this func before build & hardcoat peakbulletcount
         return peakBulletCount;
+    }
+
+    public void IncrementEnergyMeter(float EnergyIncrement)
+    {
+        EnergyMeter.value += EnergyIncrement;
+        
     }
 
 }

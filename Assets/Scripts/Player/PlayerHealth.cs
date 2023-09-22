@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Services;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class PlayerHealth : MonoBehaviour
     private GameManagerService _linkGMService;
 
     void Awake(){
-        _linkGMService = ServiceLocator.Instance.Get<GameManagerService>();
+   
     }
 
     /// <summary>
@@ -32,6 +33,7 @@ public class PlayerHealth : MonoBehaviour
     /// </summary>
     void Start()
     {
+        _linkGMService = ServiceLocator.Instance.Get<GameManagerService>();
         _playerSprite = this.GetComponentInChildren<SpriteRenderer>();
         _normalColor = _playerSprite.color;
     }
