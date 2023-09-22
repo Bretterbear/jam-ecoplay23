@@ -33,6 +33,8 @@ public class ShooterSpin : ShooterBase
         //any calls to lower max or change init vars must be here
         base.Start();
 
+        shotCountStored = shotCount;
+
         resetShootingPositions(shotCount);
     }
 
@@ -45,12 +47,12 @@ public class ShooterSpin : ShooterBase
 
         if (shootingTimer < 0f)
         {
-            shootingTimer = shotCoolDown;
+            randomizeCooldown();
 
             if (shotCount != shotCountStored)
             {
-                shotCountStored = shotCount;
-                RedistributeShootingPoints(shotCount);
+                //shotCountStored = shotCount;
+                //RedistributeShootingPoints(shotCount);
             }
 
             SpawnBullets();

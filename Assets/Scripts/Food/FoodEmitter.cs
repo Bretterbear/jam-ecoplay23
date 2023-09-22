@@ -60,21 +60,15 @@ public class FoodEmitter : MonoBehaviour
         }
 
         FoodItem foodBlast = foodInstance.GetComponent<FoodItem>();
-        Transform foodSprite = foodInstance.GetComponentInChildren<Transform>();
-        //foodSprite.rotation = Quaternion.LookRotation(targetVector);
-        //Debug.Log("FS Rotation: " + foodSprite.rotation.x + ", " + foodSprite.rotation.y); 
 
         float twistAngle = Mathf.Atan2(targetVector.y, targetVector.x);
         float twistDegrees = twistAngle * Mathf.Rad2Deg;
 
-
-        //foodSprite.rotation = 
         foodBlast.transform.position = FoodSpawnPoints[fireIndex].transform.position;
         foodBlast.timeToLive = 12f;
         foodBlast.speed = 3f;
         foodBlast.rotation = twistDegrees;
         foodBlast.velocity = Vector2.right;
-        //foodBlast.velocity = targetVector;
     }
 
     private Vector3 makeTargetingVector(int fireIndex)

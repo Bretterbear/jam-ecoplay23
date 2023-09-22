@@ -12,10 +12,12 @@ public class ShooterBase : MonoBehaviour
     [SerializeField] protected float shootRadius = 0.5f;
     [Tooltip("count of ShootingPositions")]
     [SerializeField, Range(1, 36)] protected int shotCount = 2;
-    [Tooltip("Shoot Countdown (in seconds")]
-    [SerializeField, Range(0, 2)] protected float shotCoolDown;
     [Tooltip("Bullet Speed")]
     [SerializeField, Range(0.1f, 5)] protected float bulletSpeed = 2f;
+    [Tooltip("MinCooldown seconds")]
+    [SerializeField, Min(0)] float MinCooldown =.1f;
+    [Tooltip("MaxCooldown seconds")]
+    [SerializeField, Min(0)] float MaxCooldown = 3f;
 
     [Header("Prefab References")]
     [Tooltip("Bullet - add more please")]
@@ -64,6 +66,11 @@ public class ShooterBase : MonoBehaviour
     void Update()
     {
         
+    }
+
+    protected void randomizeCooldown()
+    {
+        shootingTimer = UnityEngine.Random.Range(MinCooldown, MaxCooldown);
     }
 
     /// <summary>

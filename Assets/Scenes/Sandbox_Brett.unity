@@ -623,6 +623,18 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: 897085587
       objectReference: {fileID: 0}
+    - target: {fileID: 6362506002389361527, guid: 2ce7b3f866800fb4fb72d7b091ab7d8a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6362506002389361527, guid: 2ce7b3f866800fb4fb72d7b091ab7d8a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6362506002389361527, guid: 2ce7b3f866800fb4fb72d7b091ab7d8a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 7987688753085842286, guid: 2ce7b3f866800fb4fb72d7b091ab7d8a, type: 3}
       propertyPath: cooldown
       value: 1
@@ -639,6 +651,10 @@ PrefabInstance:
       propertyPath: minRotation
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 7987688753085842286, guid: 2ce7b3f866800fb4fb72d7b091ab7d8a, type: 3}
+      propertyPath: resourceBullet
+      value: 
+      objectReference: {fileID: 5026117650618993789, guid: 042c52081a46f234dac807700549d97a, type: 3}
     - target: {fileID: 7987688753085842286, guid: 2ce7b3f866800fb4fb72d7b091ab7d8a, type: 3}
       propertyPath: bulletsPerCycle
       value: 6
