@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody2D _playerRigidbody;
 
     [Tooltip("The Polygon Collider 2D component of the player object")]
-    [SerializeField] private PolygonCollider2D _playerCollider;
+    [SerializeField] private Collider2D _playerCollider;
 
     private SpriteRenderer _playerSprite;
     private Color _normalColor;
@@ -40,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         _playerSprite = this.GetComponentInChildren<SpriteRenderer>();
+        _playerCollider = this.GetComponent<Collider2D>();
         _normalColor = _playerSprite.color;
 
         playerHealth = GetComponent<PlayerHealth>();

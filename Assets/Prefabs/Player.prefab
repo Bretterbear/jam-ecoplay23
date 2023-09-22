@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 5095497339132071100}
   - component: {fileID: 999579852797293726}
   - component: {fileID: 7506325019847463481}
+  - component: {fileID: 122291452115804953}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -195,7 +196,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerMoveSpeed: 3
+  _playerDodgeMultiplier: 0
+  _playerDodgeTime: 0
+  _playerDodgeCost: 0
+  _bFaceDirection: 0
+  _torqueAmount: 0.1
   _playerRigidbody: {fileID: 8651745693856547682}
+  _playerCollider: {fileID: 0}
 --- !u!114 &7506325019847463481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,4 +216,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerHealth: 9
-  _playerSprite: {fileID: 2805352478969033351}
+--- !u!114 &122291452115804953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3915413265965348179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1072832bff3b5054890a05da87672773, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerEnergyMax: 20
+  _playerEnergyDecay: 0
