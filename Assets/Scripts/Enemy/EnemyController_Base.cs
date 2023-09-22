@@ -6,6 +6,8 @@ using UnityEngine.UIElements;
 public class EnemyController_Base : MonoBehaviour
 {
     [SerializeField] public Transform[] positionBounds;
+    [SerializeField,Min(1)] public int patrolLength = 10;
+
     [SerializeField] public float speed = 1f;
 
     private int patrolTarget;
@@ -36,6 +38,14 @@ public class EnemyController_Base : MonoBehaviour
         if (patrolTarget >= positionBounds.Length)
         {
             patrolTarget = 0;
+        }
+    }
+
+    private void patrolRetirement()
+    {
+        if (patrolTarget >= positionBounds.Length)
+        {
+            Destroy(gameObject);
         }
     }
 }

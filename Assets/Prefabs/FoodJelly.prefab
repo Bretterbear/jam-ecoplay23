@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4541402340887715428
+--- !u!1 &402559508486065760
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,37 +8,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2840687819215028736}
-  - component: {fileID: 4306233230798651169}
+  - component: {fileID: 6285149308165020468}
+  - component: {fileID: 1991208552327227152}
   m_Layer: 0
-  m_Name: sprite baby
+  m_Name: SpriteRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2840687819215028736
+--- !u!4 &6285149308165020468
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4541402340887715428}
+  m_GameObject: {fileID: 402559508486065760}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.7048199, w: 0.70938635}
-  m_LocalPosition: {x: -0.349, y: 0.689, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: 0.012340586, y: -0.000055562403, z: -0.69789, w: 0.71609867}
+  m_LocalPosition: {x: -0.326, y: 0.006, z: 0}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 7898346740676882407}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -89.63}
---- !u!212 &4306233230798651169
+  m_Father: {fileID: 8796615735441882907}
+  m_LocalEulerAnglesHint: {x: 1.008, y: -0.992, z: -88.533}
+--- !u!212 &1991208552327227152
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4541402340887715428}
+  m_GameObject: {fileID: 402559508486065760}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -70,21 +70,21 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 897085587
+  m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9b605419a858ec54cb8b5b4cbc6f28ea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 965daca60a109374bafdcb8592388b62, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3.2, y: 3.2}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &5026117650618993789
+--- !u!1 &7804852715992323875
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,40 +92,55 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7898346740676882407}
-  - component: {fileID: 3901940081280692000}
-  - component: {fileID: 2049345082434674687}
-  - component: {fileID: 1863220740495814736}
+  - component: {fileID: 8796615735441882907}
+  - component: {fileID: 7478062117887092004}
+  - component: {fileID: 4569645660931573595}
+  - component: {fileID: 4870445242468068759}
   m_Layer: 0
-  m_Name: bulletBag
-  m_TagString: Bullet
+  m_Name: FoodJelly
+  m_TagString: Food
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7898346740676882407
+--- !u!4 &8796615735441882907
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5026117650618993789}
+  m_GameObject: {fileID: 7804852715992323875}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.328, y: -0.0006, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
-  m_ConstrainProportionsScale: 1
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2840687819215028736}
+  - {fileID: 6285149308165020468}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &3901940081280692000
+--- !u!114 &7478062117887092004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7804852715992323875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c92532578e798c848a309913580c3a1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 2
+  value: 1
+  foodValue: 1
+--- !u!58 &4569645660931573595
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5026117650618993789}
+  m_GameObject: {fileID: 7804852715992323875}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -148,36 +163,40 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.18, y: 0.55}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.85
---- !u!114 &2049345082434674687
+  m_Radius: 0.5
+--- !u!114 &4870445242468068759
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5026117650618993789}
+  m_GameObject: {fileID: 7804852715992323875}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: febcb77cddb23dc48be199de54190de0, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
-  value: 1
---- !u!114 &1863220740495814736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5026117650618993789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b64e95f1601825499b83ff9901483c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 1
+  CollisionTag: Player
+  EventReference:
+    Guid:
+      Data1: 1828517581
+      Data2: 1249180566
+      Data3: 330315654
+      Data4: -1221040623
+    Path: event:/SFX/Food
+  Event: 
+  PlayEvent: 3
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20

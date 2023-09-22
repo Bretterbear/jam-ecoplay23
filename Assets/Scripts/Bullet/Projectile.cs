@@ -82,6 +82,10 @@ public class Projectile : MonoBehaviour
         return value;
     }
 
+    /// <summary>
+    /// Returns type of projectile that bullet is set to
+    /// </summary>
+    /// <returns></returns>
     public virtual ProjectileType GetProjectileType()
     {
         return type;
