@@ -18,6 +18,12 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Cost for doing the dodge")]
     [SerializeField] private float _playerDodgeCost;
 
+    [Tooltip("Determines speed of player movement")]
+    [SerializeField] private bool _bFaceDirection = false;
+
+    [Tooltip("How slowly should we turn (default 0.1)")]
+    [SerializeField] private float _torqueAmount = 0.1f;
+
     [Tooltip("The Rigidbody 2D component of the player object")]
     [SerializeField] private Rigidbody2D _playerRigidbody;
 
@@ -59,6 +65,23 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         _playerRigidbody.AddForce(_movement * _playerMoveSpeed, ForceMode2D.Force);
+
+        // Turned off by default, but something to try if you want
+        if (_bFaceDirection && _movement.magnitude > 0.1f)
+        {
+
+            float rotation = _playerRigidbody.rotation % 360;
+            Vector2 lookDirection = _playerRigidbody.transform.right;
+
+            Vector3 cross = Vector3.Cross(_movement, new Vector2(1, 0));
+            float sign = Mathf.Sign(cross.z);
+
+            float angle = Vector2.Angle(_movement, new Vector2(1, 0));
+            angle *= sign* -1;
+
+            float final = (angle - rotation) * _torqueAmount + rotation;
+            _playerRigidbody.MoveRotation(final);
+        }
     }
 
     void DoDodge()
