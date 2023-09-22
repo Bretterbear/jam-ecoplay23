@@ -1,3 +1,4 @@
+using Services;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,15 +24,12 @@ public class PlayerHealth : MonoBehaviour
 
     private GameManagerService _linkGMService;
 
-    void Awake(){
-        _linkGMService = ServiceLocator.Instance.Get<GameManagerService>();
-    }
-
     /// <summary>
     /// SW| Grabs the normal color of the player sprite to use for damage flash
     /// </summary>
     void Start()
     {
+        _linkGMService = ServiceLocator.Instance.Get<GameManagerService>();
         _playerSprite = this.GetComponentInChildren<SpriteRenderer>();
         _normalColor = _playerSprite.color;
     }
