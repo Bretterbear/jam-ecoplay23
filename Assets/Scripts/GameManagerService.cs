@@ -12,7 +12,7 @@ public class GameManagerService : IService
     private int peakBulletCount;
     // Player statistics
     private float playerEnergy;
-    private float playerHealth;
+    private int playerLives;
 
     Vector3 playerLocation = Vector3.zero;
 
