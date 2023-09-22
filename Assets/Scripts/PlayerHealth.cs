@@ -17,7 +17,7 @@ public class PlayerHealth : MonoBehaviour
     private bool _bInvincible = false;
 
     /// <summary>
-    /// Grabs the normal color of the player sprite to use for damage flash
+    /// SW| Grabs the normal color of the player sprite to use for damage flash
     /// </summary>
     void Start()
     {
@@ -26,8 +26,8 @@ public class PlayerHealth : MonoBehaviour
     }
 
     /// <summary>
-    /// When the player collides with somthing, if it's a bullet, the player takes damage, becomes invincible, and flashes
-    /// Triggers the game over state if _layerHealth is <= 0
+    /// SW| When the player collides with somthing, if it's a bullet, the player takes damage, becomes invincible, and flashes
+    /// SW| Triggers the game over state if _layerHealth is <= 0
     ///     *game over state not yet imlemented
     /// </summary>
     /// <param name="collision"></param>
@@ -49,7 +49,7 @@ public class PlayerHealth : MonoBehaviour
     }
 
     /// <summary>
-    /// Makes the player flash for 2 seconds, the become not invincible
+    /// SW| Makes the player flash for 2 seconds, the become not invincible
     /// </summary>
     /// <returns></returns>
     IEnumerator EDamageFlash()
