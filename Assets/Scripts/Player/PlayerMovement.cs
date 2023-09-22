@@ -27,6 +27,11 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("The Rigidbody 2D component of the player object")]
     [SerializeField] private Rigidbody2D _playerRigidbody;
 
+    [Tooltip("The Polygon Collider 2D component of the player object")]
+    [SerializeField] private PolygonCollider2D _playerCollider;
+
+    private SpriteRenderer _playerSprite;
+    private Color _normalColor;
     private Vector2 _movement;
     private bool _bDodging = false;
     private PlayerHealth playerHealth;
@@ -34,6 +39,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        _playerSprite = this.GetComponentInChildren<SpriteRenderer>();
+        _normalColor = _playerSprite.color;
+
         playerHealth = GetComponent<PlayerHealth>();
         if (playerHealth == null)
             Debug.LogError("Couldn't grab the player health component");
@@ -88,6 +96,8 @@ public class PlayerMovement : MonoBehaviour
     {
         _bDodging = true;
         playerHealth.IsInvincible = true;
+        _playerCollider.enabled = false;
+        StartCoroutine(EInvincibleFlash());
         playerEnergy.PlayerEnergyAmount -= _playerDodgeCost;
 
         _movement *= _playerDodgeMultiplier;
@@ -105,5 +115,17 @@ public class PlayerMovement : MonoBehaviour
 
         _bDodging = false;
         playerHealth.IsInvincible = false;
+        _playerCollider.enabled = true;
+    }
+
+    IEnumerator EInvincibleFlash()
+    {
+        for (int i = 0; i < 3; i++) 
+        {
+            _playerSprite.color = new Color(0.5f, 0.5f, 0.5f, 1f);
+            yield return new WaitForSeconds(_playerDodgeTime/6f);
+            _playerSprite.color = _normalColor;
+            yield return new WaitForSeconds(_playerDodgeTime/6f);
+        }
     }
 }
