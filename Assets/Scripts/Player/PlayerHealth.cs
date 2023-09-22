@@ -10,8 +10,7 @@ public class PlayerHealth : MonoBehaviour
     [Tooltip("The total health of the player")]
     [SerializeField] private float _playerHealth;
 
-    [Tooltip("The player's sprite renderer")]
-    [SerializeField] private SpriteRenderer _playerSprite;
+    private SpriteRenderer _playerSprite;
 
     private Color _normalColor;
 
@@ -23,10 +22,11 @@ public class PlayerHealth : MonoBehaviour
     }
 
     /// <summary>
-    /// Grabs the normal color of the player sprite to use for damage flash
+    /// SW| Grabs the normal color of the player sprite to use for damage flash
     /// </summary>
     void Start()
     {
+        _playerSprite = this.GetComponentInChildren<SpriteRenderer>();
         _normalColor = _playerSprite.color;
     }
 
@@ -73,14 +73,14 @@ public class PlayerHealth : MonoBehaviour
     }
 
     /// <summary>
-    /// Makes the player flash for 2 seconds, the become not invincible
+    /// SW| Makes the player flash for 2 seconds, the become not invincible
     /// </summary>
     /// <returns></returns>
     IEnumerator EDamageFlash()
     {
         for (int i = 0; i < 10; i++) 
         {
-            _playerSprite.color = new Color(0, 0, 0, 1);
+            _playerSprite.color = new Color(0.5f, 0.5f, 0.5f, 1f);
             yield return new WaitForSeconds(0.1f);
             _playerSprite.color = _normalColor;
             yield return new WaitForSeconds(0.1f);

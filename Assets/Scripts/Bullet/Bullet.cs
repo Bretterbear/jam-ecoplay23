@@ -11,9 +11,9 @@ public class Bullet : Projectile
     /// <summary> 
     /// Sets parent to null & adds projectile into the PoolService 
     /// </summary>
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
     }
 
     /// <summary> 
@@ -30,6 +30,22 @@ public class Bullet : Projectile
     protected override void OnDestroy()
     {
         base.OnDestroy();
+    }
+
+    /// <summary>
+    /// Used to enure the game manager has an accurate bullet density readinng
+    /// </summary>
+    private void OnDisable()
+    {
+        _linkGMService.UnregisterBullet();
+    }
+
+    /// <summary>
+    /// Used to enure the game manager has an accurate bullet density readinng
+    /// </summary>
+    private void OnEnable()
+    {
+        _linkGMService.RegisterBullet();
     }
 
     /// <summary>
