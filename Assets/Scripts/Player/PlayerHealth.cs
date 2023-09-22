@@ -15,6 +15,11 @@ public class PlayerHealth : MonoBehaviour
     private Color _normalColor;
 
     private bool _bInvincible = false;
+    public bool IsInvincible
+    {
+        get { return _bInvincible; }
+        set { _bInvincible = value; }
+    }
 
     /// <summary>
     /// SW| Grabs the normal color of the player sprite to use for damage flash
@@ -26,23 +31,42 @@ public class PlayerHealth : MonoBehaviour
     }
 
     /// <summary>
-    /// SW| When the player collides with somthing, if it's a bullet, the player takes damage, becomes invincible, and flashes
-    /// SW| Triggers the game over state if _layerHealth is <= 0
-    ///     *game over state not yet imlemented
+    /// When the player collides with something, if it's a bullet, the player takes damage, becomes invincible, and flashes
+    /// Triggers the game over state if _layerHealth is <= 0
+    ///     *game over state not yet implemented
     /// </summary>
     /// <param name="collision"></param>
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(_bInvincible == false && (collision.gameObject.CompareTag("Bullet") == true || collision.gameObject.CompareTag("Enemy") == true)){
-            _bInvincible = true;
-            _playerHealth = _playerHealth - collision.gameObject.GetComponent<Damage>().GetDamage();
-            StartCoroutine(EDamageFlash());
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/BulletDamage");
+        if (_bInvincible == false 
+            && (collision.gameObject.CompareTag("Bullet") == true || collision.gameObject.CompareTag("Enemy") == true))
+        {
+            PlayerHasBeenHit(collision);
         }
-        
+
+        CheckPlayerHealth();
+    }
+
+    void PlayerHasBeenHit(Collider2D collision)
+    {
+        _bInvincible = true;
+
+        Projectile Proj = collision.gameObject.GetComponent<Projectile>();
+        if (Proj != null)
+            _playerHealth += Proj.GetProjectileValue();
+
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/BulletDamage");
+
+        // Set the object hitting the player to inactive (spawner should take care of it from here)
+        collision.gameObject.SetActive(false);
+        StartCoroutine(EDamageFlash());
+    }
+
+    void CheckPlayerHealth()
+    {
         if (_playerHealth <= 0f)
         {
-            //Will trigger game over state
+            // Will trigger game over state
             gameObject.SetActive(false);
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Die");
         }

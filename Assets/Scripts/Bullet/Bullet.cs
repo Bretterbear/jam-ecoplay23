@@ -8,11 +8,6 @@ using UnityEngine;
 /// </summary>
 public class Bullet : Projectile
 {
-    // --- Serialized Variable Declarations --- //
-    [Header("Bullet Properties")]
-    [Tooltip("Bullet damage value (default 1f)")]
-    [SerializeField] private float damageValue = 1f;
-
     /// <summary> 
     /// Sets parent to null & adds projectile into the PoolService 
     /// </summary>
