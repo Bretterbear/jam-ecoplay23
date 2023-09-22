@@ -16,9 +16,9 @@ public class FoodItem : Projectile
     /// <summary> 
     /// Sets parent to null & adds projectile into the PoolService 
     /// </summary>
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
     }
 
     /// <summary> 

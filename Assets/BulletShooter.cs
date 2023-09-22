@@ -12,30 +12,36 @@ public class BulletShooter : MonoBehaviour
     [Tooltip("Radius out from core of shooting position")]
     [SerializeField] private float shootRadius = 0.5f;
     [Tooltip("count of ShootingPositions")]
-    [SerializeField] private int initShootPosCount = 2;
-    [Tooltip("Max number of ShootingPositions")]
-    [SerializeField] private int maxShootPosCount = 12;
-    [Tooltip("rotTime")]
-    [SerializeField] float rotTime = 6f;
+    [SerializeField,Range(1, 36)] private int shotCount = 2;
+    [Tooltip("Shoot Countdown (in seconds")]
+    [SerializeField, Range(0, 2)] private float shotCooldown;
+    [Tooltip("Degrees of Turn per Second")]
+    [SerializeField, Range(-1080,1080)] private float rotSpeed;
+    [Tooltip("Bullet Speed")]
+    [SerializeField, Range(0.1f, 5)] private float bulletSpeed;
+
 
     [Header("Prefab References")]
     [Tooltip("Bullet - add more please")]
     [SerializeField] private GameObject resourceBullet;
 
     // --- Private Variable Declarations --- //
-    private float shootingTimer;                // Contains current countdown to next shot
+    private int maxShootPosCount = 36;
+    private float shootingTimer=0;                // Contains current countdown to next shot
     private GameObject[] shootPosition;
     private GameObject rotationalCenter;
     private PoolService _linkBulletPool;        // Service link to the PoolService
-    private float[] shootAngle;
+    private float[] shootAngle;                 
     private float rotCenterAngle;
-    private float rotSpeed;
     private Vector2 impulseVector;
 
     private Color[] colors;
 
     void Start()
     {
+        // Link to the very heavily used bullet pool
+        _linkBulletPool = ServiceLocator.Instance.Get<PoolService>();
+
         colors = new Color[]
         {
             Color.red,
@@ -46,26 +52,24 @@ public class BulletShooter : MonoBehaviour
             Color.magenta,
         };
 
-        shootingTimer = 1f;
+        // Initialization of runtime settings
 
-        _linkBulletPool = ServiceLocator.Instance.Get<PoolService>();
-
-        impulseVector = Vector2.up;
-
-        shootPosition = new GameObject[maxShootPosCount];
-        shootAngle = new float[maxShootPosCount];
-
+        // Set rotational centerpoint for any targeting systems
         rotationalCenter = new GameObject("RotCenter");
         rotationalCenter.transform.SetParent(transform, false);
 
-        rotSpeed = 360f / rotTime;
-
+        // Set up shooting position array (gets reset on each position reset call)
+        shootPosition = new GameObject[maxShootPosCount];
         for (int i = 0; i < maxShootPosCount; i++)
         {
             shootPosition[i] = new GameObject($"{this.name}_ShootPosition_{i}");
             shootPosition[i].transform.SetParent(rotationalCenter.transform, false);
         }
-        resetShootingPositions(initShootPosCount);
+
+        impulseVector = Vector2.right;
+        shootAngle = new float[maxShootPosCount];
+
+        resetShootingPositions(shotCount);
     }
 
     // Update is called once per frame
@@ -78,7 +82,8 @@ public class BulletShooter : MonoBehaviour
         if (shootingTimer < 0f)
         {
             SpawnBullets();
-            shootingTimer = .1f;
+            shootingTimer = shotCooldown;
+            //RedistributeShootingPoints(shotCount);
         }
     }
 
@@ -93,6 +98,11 @@ public class BulletShooter : MonoBehaviour
         rotationalCenter.transform.rotation = Quaternion.identity;
         rotCenterAngle = 0;
 
+        RedistributeShootingPoints(posCount);
+    }
+
+    private void RedistributeShootingPoints(int posCount)
+    {
         float rotOffset = 360f / posCount;
 
         for (int i = 0; i < posCount; i++)
@@ -107,7 +117,7 @@ public class BulletShooter : MonoBehaviour
 
     public void SpawnBullets()
     {
-        for (int i = 0; i < initShootPosCount; i++)
+        for (int i = 0; i < shotCount; i++)
         {
             GameObject newBullet = GetABullet();
             newBullet.transform.position = shootPosition[i].transform.position;
@@ -136,9 +146,7 @@ public class BulletShooter : MonoBehaviour
     {
         float rot = shootAngle[i] + rotCenterAngle;
 
-        SetProjectileProperties(obj, impulseVector, 3f, rot, 6f);
-
-
+        SetProjectileProperties(obj, impulseVector, bulletSpeed, rot, 6f);
     }
 
     /// Set ballistic properties of projectile for 'firing'
@@ -163,7 +171,7 @@ public class BulletShooter : MonoBehaviour
 
         SpriteRenderer spriteRenderer = obj.GetComponent<SpriteRenderer>();
 
-        spriteRenderer.color = colors[(int) (Time.time*2) % (colors.Length)];
+        //spriteRenderer.color = colors[(int) (Time.time*2) % (colors.Length)];
 
     }
 }

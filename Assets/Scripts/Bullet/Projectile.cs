@@ -14,6 +14,8 @@ public class Projectile : MonoBehaviour
     [Header("Projectile Properties")]
     [Tooltip("Projectile type (Bullet_* / Food_*)")]
     [SerializeField] private ProjectileType type;
+    [Tooltip("Projectile value - will be added, set to negative for subtraction (default 1f)")]
+    [SerializeField] private float value = 1f;
 
     // --- Non-Serialized Variable Declarations --- //
     [NonSerialized] public Vector2 velocity;            // Unit vector modified by speed to give directionality (generally [1,0])
@@ -21,16 +23,20 @@ public class Projectile : MonoBehaviour
     [NonSerialized] public float rotation;              // Set by whatever spawner fires it, may change over time
     [NonSerialized] public float timeToLive = 6f;       // Set by spawner, needs to be long enough to not "blip" out on screen
 
+    protected GameManagerService _linkGMService;
+
     /// <summary> 
     /// Sets parent to null & adds projectile into the PoolService 
     /// </summary>
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         // Precautionary, parent should be being reset to a poolBin when added to the pool anyways
         transform.SetParent(null);
 
         // As soon as object comes to life, needs to be added to an object pool
         ServiceLocator.Instance.Get<PoolService>().AddToPool(this.gameObject);
+
+        _linkGMService = ServiceLocator.Instance.Get<GameManagerService>();
     }
 
     /// <summary> 
@@ -58,7 +64,7 @@ public class Projectile : MonoBehaviour
             ServiceLocator.Instance.Get<PoolService>().RemoveFromPool(this.gameObject);
         }
     }
-    
+
     /// <summary>
     /// Simple for now, will have increasing complexity over time
     /// </summary>
@@ -69,6 +75,11 @@ public class Projectile : MonoBehaviour
             this.transform.rotation = Quaternion.Euler(0,0,rotation);
         }
         transform.Translate(velocity * speed * Time.deltaTime);
+    }
+
+    public virtual float GetProjectileValue()
+    {
+        return value;
     }
 
     public virtual ProjectileType GetProjectileType()
