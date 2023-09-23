@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Services;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -54,6 +55,12 @@ public class PlayerHealth : MonoBehaviour
     /// <param name="collision"></param>
     void OnTriggerEnter2D(Collider2D collision)
     {
+        if(collision.gameObject.CompareTag("Wall") == true){
+            Debug.Log("YOU DIED");
+            //SceneManager.LoadSceneAsync("Game Over");
+        }
+
+        /*
         if (_bInvincible == false 
             && (collision.gameObject.CompareTag("Bullet") == true || collision.gameObject.CompareTag("Enemy") == true))
         {
@@ -61,6 +68,7 @@ public class PlayerHealth : MonoBehaviour
         }
 
         CheckPlayerHealth();
+        */
     }
 
     void PlayerHasBeenHit(Collider2D collision)
