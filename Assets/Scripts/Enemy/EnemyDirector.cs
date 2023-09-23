@@ -2,23 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class EnemyDirector : MonoBehaviour
 {
     // --- Serialized Variable Declarations --- //
     [SerializeField] private GameObject[] enemyPrefabs;
     [SerializeField] private float[] spawnTime;
+    [Tooltip("in seconds - default 300")]
+    [SerializeField] private float levelLength = 300f;
 
     // --- Serialized Variable Declarations --- //
     private float gameTimer;
     private bool[] _bHasSpawned;
     private int _currentSpawnIndex;
     private int arrayLength;
+    private SceneLoader sceneLoader;
 
     void Start()
     {
         gameTimer = 0;
         _currentSpawnIndex = 0;
         arrayLength = enemyPrefabs.Length;
+        sceneLoader = GameObject.Find("SceneController").GetComponent<SceneLoader>();
 
         for (int i = 0; i < enemyPrefabs.Length; i++)
         {
@@ -38,6 +43,12 @@ public class EnemyDirector : MonoBehaviour
                 Instantiate(enemyPrefabs[_currentSpawnIndex]);
                 _currentSpawnIndex++;
             }
+        }
+
+        if (gameTimer > levelLength)
+        {
+            Debug.Log("YOU WIN!");
+            sceneLoader.GameOver();
         }
     }
 

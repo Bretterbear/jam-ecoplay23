@@ -95,6 +95,7 @@ public class ShooterSpin : ShooterBase
             newBullet.transform.position = shootPosition[i].transform.position;
             FireBullet(newBullet, i);
         }
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Shoot2");
     }
 
     protected override GameObject GetABullet()
