@@ -217,8 +217,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2025572032}
-        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
+      - m_Target: {fileID: 1285012934}
+        m_TargetAssemblyTypeName: DeathManager, Assembly-CSharp
         m_MethodName: Quit
         m_Mode: 1
         m_Arguments:
@@ -599,9 +599,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2025572032}
-        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: LoadLevel
+      - m_Target: {fileID: 1285012934}
+        m_TargetAssemblyTypeName: DeathManager, Assembly-CSharp
+        m_MethodName: Retry
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -662,6 +662,7 @@ GameObject:
   - component: {fileID: 1285012930}
   - component: {fileID: 1285012929}
   - component: {fileID: 1285012933}
+  - component: {fileID: 1285012934}
   m_Layer: 5
   m_Name: TitleCanvas
   m_TagString: Untagged
@@ -765,6 +766,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2ee82ff7f4c780642b4d0a8b1837ecba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1285012934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285012928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d929cbc3d408e442b0d6c649e4c5a6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1483082637
