@@ -57,7 +57,7 @@ MonoBehaviour:
   - {fileID: 2784545566282442949}
   - {fileID: 2214446074529740970}
   patrolLength: 5
-  speed: 2
+  speed: 1
 --- !u!1 &205744123392937897
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,6 +105,7 @@ MonoBehaviour:
   shootRadius: 0.1
   shotCount: 5
   bulletSpeed: 3
+  bulletTimeToLive: 15
   MinCooldown: 1
   MaxCooldown: 2
   resourceBullet: {fileID: 7983605239784739448, guid: e5902844904ed2048bacac7cf7eb05bf, type: 3}
@@ -190,6 +191,7 @@ MonoBehaviour:
   shootRadius: 0.5
   shotCount: 8
   bulletSpeed: 3.011
+  bulletTimeToLive: 15
   MinCooldown: 0.4
   MaxCooldown: 0.8
   resourceBullet: {fileID: 5026117650618993789, guid: 042c52081a46f234dac807700549d97a, type: 3}
@@ -275,6 +277,7 @@ MonoBehaviour:
   shootRadius: 0.1
   shotCount: 3
   bulletSpeed: 3
+  bulletTimeToLive: 15
   MinCooldown: 0.5
   MaxCooldown: 1
   resourceBullet: {fileID: 7983605239784739448, guid: e5902844904ed2048bacac7cf7eb05bf, type: 3}
@@ -525,6 +528,7 @@ MonoBehaviour:
   shootRadius: 0.1
   shotCount: 3
   bulletSpeed: 3.059
+  bulletTimeToLive: 15
   MinCooldown: 0.1
   MaxCooldown: 3
   resourceBullet: {fileID: 5026117650618993789, guid: 042c52081a46f234dac807700549d97a, type: 3}
