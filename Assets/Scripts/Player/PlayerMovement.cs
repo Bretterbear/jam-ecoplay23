@@ -124,7 +124,7 @@ public class PlayerMovement : MonoBehaviour
     {
         for (int i = 0; i < 3; i++) 
         {
-            _playerSprite.color = new Color(1f, 0.92f, 0.016f, 1f);
+            _playerSprite.color = new Color(0f, 204f, 204f, 1f);
             yield return new WaitForSeconds(_playerDodgeTime/6f);
             _playerSprite.color = _normalColor;
             yield return new WaitForSeconds(_playerDodgeTime/6f);
