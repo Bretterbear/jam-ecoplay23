@@ -65,4 +65,9 @@ public class PauseMenu : MonoBehaviour
         Application.Quit();
         #endif
     }
+
+    public void PlayButtonSound()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot("Button");
+    }
 }

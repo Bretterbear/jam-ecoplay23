@@ -16,12 +16,14 @@ public class EnemyDirector : MonoBehaviour
     private bool[] _bHasSpawned;
     private int _currentSpawnIndex;
     private int arrayLength;
+    private SceneLoader sceneLoader;
 
     void Start()
     {
         gameTimer = 0;
         _currentSpawnIndex = 0;
         arrayLength = enemyPrefabs.Length;
+        sceneLoader = GameObject.Find("SceneController").GetComponent<SceneLoader>();
 
         for (int i = 0; i < enemyPrefabs.Length; i++)
         {
@@ -46,6 +48,7 @@ public class EnemyDirector : MonoBehaviour
         if (gameTimer > levelLength)
         {
             Debug.Log("YOU WIN!");
+            sceneLoader.GameOver();
         }
     }
 

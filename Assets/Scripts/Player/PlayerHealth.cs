@@ -25,11 +25,7 @@ public class PlayerHealth : MonoBehaviour
     }
 
     private GameManagerService _linkGMService;
-
-
-    void Awake(){
-   
-    }
+    private SceneLoader sceneLoader;
 
     /// <summary>
     /// SW| Grabs the normal color of the player sprite to use for damage flash
@@ -39,6 +35,7 @@ public class PlayerHealth : MonoBehaviour
         _linkGMService = ServiceLocator.Instance.Get<GameManagerService>();
         _playerSprite = this.GetComponentInChildren<SpriteRenderer>();
         _normalColor = _playerSprite.color;
+        sceneLoader = GameObject.Find("SceneController").GetComponent<SceneLoader>();
     }
 
     /// <summary>
@@ -55,20 +52,18 @@ public class PlayerHealth : MonoBehaviour
     /// <param name="collision"></param>
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("Wall") == true){
-            Debug.Log("YOU DIED");
-            //SceneManager.LoadSceneAsync("Game Over");
-        }
-
-        /*
-        if (_bInvincible == false 
-            && (collision.gameObject.CompareTag("Bullet") == true || collision.gameObject.CompareTag("Enemy") == true))
+        if (collision.gameObject.CompareTag("Wall") == true)
         {
-            PlayerHasBeenHit(collision);
+            YouDied();
         }
+    }
 
-        CheckPlayerHealth();
-        */
+    void YouDied()
+    {
+        Debug.Log("YOU DIED");
+        gameObject.SetActive(false);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Die");
+        sceneLoader.GameOver();
     }
 
     void PlayerHasBeenHit(Collider2D collision)
