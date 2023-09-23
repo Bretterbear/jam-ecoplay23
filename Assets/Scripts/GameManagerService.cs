@@ -14,6 +14,8 @@ public class GameManagerService : IService
     private float playerEnergy;
     private int playerLives;
 
+    private float playerMaxEnergy;
+
     
 
     /// <summary>
@@ -64,9 +66,26 @@ public class GameManagerService : IService
         return peakBulletCount;
     }
 
-    public void IncrementEnergyMeter(float EnergyIncrement)
+
+    public float GetPlayerEnergy()
     {
-        EnergyMeter.value += EnergyIncrement;
+        return playerEnergy;
+    }
+
+    public void SetPlayerEnergy(float energyAmount)
+    {
+        playerEnergy = energyAmount;
+    }
+
+    public float GetMaxEnergy()
+    {
+         
+        return playerMaxEnergy;
+    }
+
+    public void SetMaxEnergy(float MaxEnergyAmount)
+    {
+        playerMaxEnergy = MaxEnergyAmount;
         
     }
 
