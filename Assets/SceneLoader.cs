@@ -53,7 +53,7 @@ public class SceneLoader : MonoBehaviour
 
     public void Winner()
     {
-        SceneManager.LoadScene(4);
+        SceneManager.LoadScene(3);
     }
 
     public static void Quit()
