@@ -13,7 +13,7 @@ public class ShooterBase : MonoBehaviour
     [Tooltip("count of ShootingPositions")]
     [SerializeField, Range(1, 36)] protected int shotCount = 2;
     [Tooltip("Bullet Speed")]
-    [SerializeField, Range(0.1f, 5)] protected float bulletSpeed = 2f;
+    [SerializeField, Range(0.1f, 10)] protected float bulletSpeed = 2f;
     [Tooltip("MaxCooldown seconds")]
     [SerializeField, Min(0)] protected float bulletTimeToLive = 15f;
     [Tooltip("MinCooldown seconds")]
