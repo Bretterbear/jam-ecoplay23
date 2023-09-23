@@ -14,7 +14,7 @@ public class SceneLoader : MonoBehaviour
         // Only have 1 scene controller
         if (sceneController != null)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
             return;
         }
 
@@ -49,6 +49,11 @@ public class SceneLoader : MonoBehaviour
     public void GameOver()
     {
         SceneManager.LoadScene(3);
+    }
+
+    public void Winner()
+    {
+        SceneManager.LoadScene(4);
     }
 
     public static void Quit()

@@ -48,7 +48,7 @@ public class EnemyDirector : MonoBehaviour
         if (gameTimer > levelLength)
         {
             Debug.Log("YOU WIN!");
-            sceneLoader.GameOver();
+            sceneLoader.Winner();
         }
     }
 
