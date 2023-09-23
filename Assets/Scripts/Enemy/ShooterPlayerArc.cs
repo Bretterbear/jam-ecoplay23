@@ -69,6 +69,7 @@ public class ShooterPlayerArc : ShooterBase
             {
                 FireBullet(GetABullet(), i);
             }
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Shoot");
             randomizeCooldown();
         }
     }
