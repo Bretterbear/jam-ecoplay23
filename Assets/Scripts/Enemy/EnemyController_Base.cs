@@ -26,7 +26,7 @@ public class EnemyController_Base : MonoBehaviour
     {
         transform.position = Vector2.MoveTowards(transform.position, positionBounds[patrolTarget].position, speed * Time.deltaTime);
 
-        if (Vector3.Distance(transform.position, positionBounds[patrolTarget].position) < 1)
+        if (Vector3.Distance(transform.position, positionBounds[patrolTarget].position) < .025)
         {
             IncrementPatrolPoint();
         }

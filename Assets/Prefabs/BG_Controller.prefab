@@ -385,7 +385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b3924a847833b64b9c1bd72fcdab433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 1.5
+  scrollSpeed: 0.9
   bIsMoving: 1
   bLoopAtFinish: 1
   loopPointLeft: -15
@@ -861,7 +861,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b3924a847833b64b9c1bd72fcdab433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 0.25
+  scrollSpeed: 0.1
   bIsMoving: 1
   bLoopAtFinish: 0
   loopPointLeft: -15
@@ -915,7 +915,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b3924a847833b64b9c1bd72fcdab433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 0.75
+  scrollSpeed: 0.4
   bIsMoving: 1
   bLoopAtFinish: 1
   loopPointLeft: -15
