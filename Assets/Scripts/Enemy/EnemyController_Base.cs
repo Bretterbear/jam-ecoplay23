@@ -37,15 +37,7 @@ public class EnemyController_Base : MonoBehaviour
         patrolTarget++;
         if (patrolTarget >= positionBounds.Length)
         {
-            patrolTarget = 0;
-        }
-    }
-
-    private void patrolRetirement()
-    {
-        if (patrolTarget >= positionBounds.Length)
-        {
-            Destroy(gameObject);
+            Destroy(this.gameObject);
         }
     }
 }

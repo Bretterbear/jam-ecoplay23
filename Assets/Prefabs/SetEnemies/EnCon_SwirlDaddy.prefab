@@ -133,6 +133,7 @@ MonoBehaviour:
   shootRadius: 0.5
   shotCount: 4
   bulletSpeed: 2
+  bulletTimeToLive: 15
   MinCooldown: 0.2
   MaxCooldown: 0.5
   resourceBullet: {fileID: 7983605239784739448, guid: e5902844904ed2048bacac7cf7eb05bf, type: 3}
