@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Services; 
 
 public class PlayerEnergy : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class PlayerEnergy : MonoBehaviour
     [Tooltip("The amount of energy lost per second")]
     [SerializeField] private float _playerEnergyDecay;
 
+    private GameManagerService _linkGMService;
+
     private float _playerEnergy = 0;
     public float PlayerEnergyAmount
     {
@@ -21,6 +24,9 @@ public class PlayerEnergy : MonoBehaviour
         {
             _playerEnergy = value;
             _playerEnergy = Mathf.Clamp(_playerEnergy, 0f, _playerEnergyMax);
+            
+            _linkGMService.SetPlayerEnergy(_playerEnergy);
+          
         }
     }
     
@@ -30,7 +36,10 @@ public class PlayerEnergy : MonoBehaviour
     void Start()
     {
         // Todo: Assess - do we want to always have max energy when starting a game?
+        _linkGMService = ServiceLocator.Instance.Get<GameManagerService>();
+        _linkGMService.SetMaxEnergy(_playerEnergyMax);
         PlayerEnergyAmount = _playerEnergyMax;
+
     }
 
     /// <summary>

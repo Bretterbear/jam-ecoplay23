@@ -95,7 +95,6 @@ GameObject:
   - component: {fileID: 5117140116485144184}
   - component: {fileID: 8651745693856547682}
   - component: {fileID: 5095497339132071100}
-  - component: {fileID: 999579852797293726}
   - component: {fileID: 7506325019847463481}
   - component: {fileID: 122291452115804953}
   m_Layer: 0

@@ -25,6 +25,11 @@ public class PlayerHealth : MonoBehaviour
 
     private GameManagerService _linkGMService;
 
+
+    void Awake(){
+   
+    }
+
     /// <summary>
     /// SW| Grabs the normal color of the player sprite to use for damage flash
     /// </summary>

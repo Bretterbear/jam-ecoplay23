@@ -1,6 +1,7 @@
 using Services;
 using UnityEngine;
 
+
 /// <summary>
 /// Used for level-wide variable tracking (screen bullet density, player health / energy, etc)
 /// </summary>
@@ -13,6 +14,8 @@ public class GameManagerService : IService
     // Player statistics
     private float playerEnergy;
     private int playerLives;
+
+    private float playerMaxEnergy;
 
     Vector3 playerLocation = Vector3.zero;
 
@@ -73,6 +76,29 @@ public class GameManagerService : IService
     {
         //BH| REMINDER - Remove this func before build & hardcoat peakbulletcount
         return peakBulletCount;
+    }
+
+
+    public float GetPlayerEnergy()
+    {
+        return playerEnergy;
+    }
+
+    public void SetPlayerEnergy(float energyAmount)
+    {
+        playerEnergy = energyAmount;
+    }
+
+    public float GetMaxEnergy()
+    {
+         
+        return playerMaxEnergy;
+    }
+
+    public void SetMaxEnergy(float MaxEnergyAmount)
+    {
+        playerMaxEnergy = MaxEnergyAmount;
+        
     }
 
 }
