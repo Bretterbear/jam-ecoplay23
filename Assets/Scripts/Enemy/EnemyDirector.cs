@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class EnemyDirector : MonoBehaviour
 {
     // --- Serialized Variable Declarations --- //
     [SerializeField] private GameObject[] enemyPrefabs;
     [SerializeField] private float[] spawnTime;
+    [Tooltip("in seconds - default 300")]
+    [SerializeField] private float levelLength = 300f;
 
     // --- Serialized Variable Declarations --- //
     private float gameTimer;
@@ -38,6 +41,11 @@ public class EnemyDirector : MonoBehaviour
                 Instantiate(enemyPrefabs[_currentSpawnIndex]);
                 _currentSpawnIndex++;
             }
+        }
+
+        if (gameTimer > levelLength)
+        {
+            Debug.Log("YOU WIN!");
         }
     }
 
