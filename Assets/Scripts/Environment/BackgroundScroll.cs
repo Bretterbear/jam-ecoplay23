@@ -5,6 +5,11 @@ using UnityEngine;
 //BH| TODO - Change binary start/stop in layer to a gradual slowdown time permitting
 //BH| TODO - Make governance class for root BG object to be able to control all sub layers
 //BH| POSS - Add small random differential motion within layer, or the ability to mod speed inside a level
+
+
+//Crit values: 15,0,0 = bg level start
+//            -15,0,0 = bg level end
+
 public class BackgroundScroll : MonoBehaviour
 {
     // --- Serialized Variable Declarations --- //
@@ -13,6 +18,8 @@ public class BackgroundScroll : MonoBehaviour
     [SerializeField] private float scrollSpeed = 1f;
     [Tooltip("Controls whether layer elements will scroll on update")]
     [SerializeField] private bool bIsMoving = true;
+    [Tooltip("Controls whether layer elements will scroll on update")]
+    [SerializeField] private bool bLoopAtFinish = true;
 
     [Header("Loop Point Designation")]
     [Tooltip("X value of the point where looping BG content should wrap around AT")]
@@ -43,9 +50,13 @@ public class BackgroundScroll : MonoBehaviour
         foreach (GameObject obj in objectsUnderControl)
         {
             obj.transform.Translate(moveVector * Time.deltaTime);
-            if (obj.transform.position.x < loopPointLeft)
+            if (bLoopAtFinish && obj.transform.position.x < loopPointLeft)
             {
                 obj.transform.position = new Vector3(loopPointRight, obj.transform.position.y);
+            }
+            else if(!bLoopAtFinish && obj.transform.localPosition.x < loopPointLeft)
+            {
+                moveVector = moveVector * 0;
             }
         }
     }

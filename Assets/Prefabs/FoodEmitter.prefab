@@ -337,7 +337,7 @@ MonoBehaviour:
   _coolDownMax: 1
   _xSpread: 5
   _ySpread: 4
-  FoodSource: {fileID: 7804852715992323875, guid: 3af6044fa44a7684d8f4758cf0a86337, type: 3}
+  FoodSource: {fileID: 7804852715992323875, guid: 90f56f79425ea5c4984b6d860ac52ebe, type: 3}
   FoodSpawnPoints:
   - {fileID: 6181179348049206034}
   - {fileID: 1864996453207304385}

@@ -1,4 +1,5 @@
 using Services;
+using UnityEngine;
 
 
 /// <summary>
@@ -16,7 +17,7 @@ public class GameManagerService : IService
 
     private float playerMaxEnergy;
 
-    
+    Vector3 playerLocation = Vector3.zero;
 
     /// <summary>
     /// Called from GameManager
@@ -26,6 +27,17 @@ public class GameManagerService : IService
         liveBulletCount = 0;    // Used to store currently live bullets in level (for bullet density)
         peakBulletCount = 0;
     }
+
+    public void recordPlayerLocation(Vector3 playerLoc)
+    {
+        playerLocation = playerLoc;
+    }
+
+    public Vector3 GetPlayerLocation()
+    {
+        return playerLocation;
+    }
+
 
     /// <summary>
     /// Used by game manager to get relative bullet density (for FMOD audio tweaks)
