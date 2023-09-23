@@ -14,6 +14,8 @@ public class ShooterBase : MonoBehaviour
     [SerializeField, Range(1, 36)] protected int shotCount = 2;
     [Tooltip("Bullet Speed")]
     [SerializeField, Range(0.1f, 5)] protected float bulletSpeed = 2f;
+    [Tooltip("MaxCooldown seconds")]
+    [SerializeField, Min(0)] protected float bulletTimeToLive = 15f;
     [Tooltip("MinCooldown seconds")]
     [SerializeField, Min(0)] float MinCooldown =.1f;
     [Tooltip("MaxCooldown seconds")]
@@ -93,7 +95,7 @@ public class ShooterBase : MonoBehaviour
     {
         float rot = shootAngle[i] + rotCenterAngle;
 
-        SetProjectileProperties(obj, impulseVector, bulletSpeed, rot, 6f);
+        SetProjectileProperties(obj, impulseVector, bulletSpeed, rot, bulletTimeToLive);
     }
 
     /// Set ballistic properties of projectile for 'firing'

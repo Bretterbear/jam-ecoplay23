@@ -135,7 +135,7 @@ MonoBehaviour:
   bulletSpeed: 2
   MinCooldown: 0.2
   MaxCooldown: 0.5
-  resourceBullet: {fileID: 5026117650618993789, guid: 042c52081a46f234dac807700549d97a, type: 3}
+  resourceBullet: {fileID: 7983605239784739448, guid: e5902844904ed2048bacac7cf7eb05bf, type: 3}
   rotSpeed: 189
 --- !u!114 &7185512959317233345
 MonoBehaviour:
