@@ -21,4 +21,9 @@ public class DeathManager : MonoBehaviour
     {
         SceneLoader.Quit();
     }
+
+    public void MainMenuCaller()
+    {
+        sceneLoader.GoToTitle();
+    }
 }
