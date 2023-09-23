@@ -7,23 +7,28 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : MonoBehaviour
 {
 
-    GameObject SceneControllerobject;
+    static GameObject sceneController;
     // Start is called before the first frame update
     void Start()
     {
-        SceneControllerobject= GameObject.Find("SceneController");
-        DontDestroyOnLoad(SceneControllerobject);
+        // Only have 1 scene controller
+        if (sceneController != null)
+        {
+            Destroy(this);
+            return;
+        }
+
+        sceneController = GameObject.Find("SceneController");
+        DontDestroyOnLoad(sceneController);
     }
 
     // Update is called once per frame
     void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.End))
         {
             GameOver();
         }
-
     }
 
     public void LoadLevel()
