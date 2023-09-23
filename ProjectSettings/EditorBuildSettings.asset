@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/GameBuildLevels/Title.unity
     guid: 6ec00fe95eb6ff74cbf2fbee8297847a
   - enabled: 1
-    path: Assets/Scenes/GameBuildLevels/LevelSequence.unity
-    guid: 0c27af7b263e8124aae06aae653e8454
+    path: Assets/Scenes/GameBuildLevels/LevelJ.unity
+    guid: beea5e7700a806248865001e6486bdaa
   - enabled: 1
     path: Assets/Scenes/GameBuildLevels/GameOver.unity
     guid: d00a53e29f404c249be1d35c40b3a026
